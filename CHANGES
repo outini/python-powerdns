@@ -1,0 +1,8 @@
+python-powerdns - PowerDNS web api python client and interface
+==============================================================
+
+Contact: Denis 'jawa' Pompilio <dpompilio@vente-privee.com>
+Sources: https://github.com/vente-privee/python-powerdns
+
+=== v0.1.0 2018/02/08 ===
+* Initial release of python-powerdns
