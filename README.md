@@ -76,7 +76,7 @@ Backup and restoration of zones:
 ```python
 # Backup every zone of every PowerDNS server
 for server in api.servers:
-    backup_dir = "backups/%s" % server.name
+    backup_dir = "backups/%s" % server.id
     for zone in server.zones:
         zone.backup(backup_dir)
 
