@@ -1,0 +1,68 @@
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
+#
+#  PowerDNS web api python client and interface (python-powerdns)
+#
+#  Copyright (C) 2018 Denis Pompilio (jawa) <dpompilio@vente-privee.com>
+#
+#  This file is part of python-powerdns
+#
+#  This program is free software; you can redistribute it and/or
+#  modify it under the terms of the MIT License.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  MIT License for more details.
+#
+#  You should have received a copy of the MIT License along with this
+#  program; if not, see <https://opensource.org/licenses/MIT>.
+
+import argparse
+import powerdns
+from datetime import date
+
+
+logger = powerdns.basic_logger("powerdns")
+
+
+# -- Main --
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='PowerDNS zone creator')
+    parser.add_argument('-A', '--api', dest='api', required=True,
+                        help="PowerDNS api (eg. https://api.domain.tld/api/v1")
+    parser.add_argument('-K', '--key', dest='apikey', required=True,
+                        help="PowerDNS api key")
+    parser.add_argument('-z', '--zone', dest='zone', required=True,
+                        help="Zone name (canonical)")
+    parser.add_argument('-o', '--origin', dest='origin', required=True,
+                        help="Zone origin (for SOA)")
+    parser.add_argument('-c', '--contact', dest='contact', required=True,
+                        help="Zone contact (for SOA)")
+    parser.add_argument('-d', '--dns', dest='dns', required=True,
+                        help="Zone nameservers comma separated")
+    parser.add_argument('-t', '--timers', dest='timers',
+                        help="Zone timers (eg. '28800 7200 604800 86400')",
+                        default="28800 7200 604800 86400")
+
+    args = parser.parse_args()
+
+    api_client = powerdns.PDNSApiClient(
+        api_endpoint=args.api, api_key=args.apikey, verify=False)
+    api = powerdns.PDNSEndpoint(api_client)
+
+    zone_name = args.zone
+
+    serial = date.today().strftime("%Y%m%d00")
+    soa_ttl = args.timers.split()[-1]
+
+    soa = "%s %s %s %s" % (args.origin, args.contact, serial, args.timers)
+    soa_r = powerdns.RRSet(name=args.zone,
+                           rtype="SOA",
+                           records=[(soa, False)],
+                           ttl=soa_ttl)
+
+    api.servers[0].create_zone(name=zone_name,
+                               kind="Native",
+                               rrsets=[soa_r],
+                               nameservers=args.dns.split(','))

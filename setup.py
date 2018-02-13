@@ -23,7 +23,7 @@ from distutils.core import setup
 
 if __name__ == '__main__':
     readme_file = os.path.join(os.path.dirname(__file__), 'README.md')
-    release = "0.1.0"
+    release = "0.1.1"
     setup(
         name="python-powerdns",
         version=release,
@@ -36,7 +36,7 @@ if __name__ == '__main__':
         long_description=open(readme_file).read(),
         license="MIT",
         platforms=['UNIX'],
-        scripts=[],
+        scripts=['bin/pdns-create-zone'],
         packages=['powerdns'],
         package_dir={'powerdns': 'powerdns'},
         data_files=[
