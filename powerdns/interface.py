@@ -389,7 +389,7 @@ class PDNSZone(PDNSEndpointBase):
         self._details = None
         return self._patch(self.url, data={'rrsets': rrsets})
 
-    def backup(self, directory, filename=None):
+    def backup(self, directory, filename=None, pretty_json=False):
         """Backup zone data to json file
 
         :param str directory: Directory to store json file
@@ -405,7 +405,14 @@ class PDNSZone(PDNSEndpointBase):
         logger.info("backup file is %s" % json_file)
 
         with open(json_file, "w") as backup_fp:
-            json.dump(self.details, backup_fp)
+            if pretty_json:
+                json.dump(self.details,
+                          backup_fp,
+                          ensure_ascii=True,
+                          indent=2,
+                          sort_keys=True)
+            else:
+                json.dump(self.details, backup_fp)
         logger.info("zone %s successfully saved" % self.name)
 
 
