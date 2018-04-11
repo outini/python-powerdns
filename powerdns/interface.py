@@ -20,10 +20,39 @@
 import logging
 import os
 import json
-from .exceptions import PDNSCanonicalError
+from .exceptions import PDNSCanonicalError, PDNSError
 
 
 logger = logging.getLogger(__name__)
+
+
+class PDNSSoa(object):
+    """DNS SOA object
+    
+    :param dict soa_rrset: SOA record data
+    """
+    def __init__(self, soa_rrset):
+        """Initialization method"""
+        self.rrset = soa_rrset
+
+        (self.mname,
+         self.rname,
+         self.serial,
+         self.refresh,
+         self.retry,
+         self.expire,
+         self.minimum) = soa_rrset['records'][0]['content'].split()
+
+    def __repr__(self):
+        return '%s %s %s %s %s %s %s' % (
+            self.mname,
+            self.rname,
+            self.serial,
+            self.refresh,
+            self.retry,
+            self.expire,
+            self.minimum
+        )
 
 
 class PDNSEndpointBase(object):
@@ -145,8 +174,15 @@ class PDNSServer(PDNSEndpointBase):
         logger.info("listing available zones")
         if not self._zones:
             logger.info("getting available zones from API")
-            self._zones = [PDNSZone(self.api_client, self, data)
-                           for data in self._get('%s/zones' % self.url)]
+            self._zones = []
+            for data in self._get('%s/zones' % self.url):
+                try:
+                    self._zones.append(PDNSZone(self.api_client, self, data))
+                except PDNSError as exc:
+                    if exc.status_code == 401:
+                        logger.debug("skipped unauthorized zone '%s'" % data)
+                    else:
+                        raise
         logger.info("%d zone(s) listed" % len(self._zones))
         logger.debug("listed zones: %s" % self._zones)
         return self._zones
@@ -322,6 +358,7 @@ class PDNSZone(PDNSEndpointBase):
         self.server = server
         self.name = api_data['name']
         self.url = '%s/zones/%s' % (self.server.url, self.name)
+        self._soa = None
         self._details = None
         super(PDNSZone, self).__init__(api_client)
 
@@ -336,13 +373,25 @@ class PDNSZone(PDNSEndpointBase):
         logger.info("getting %s zone details" % self.name)
         if not self._details:
             logger.info("getting %s zone details from api" % self.name)
-            self._details = self._get(self.url)
+            try:
+                self._details = self._get(self.url)
+            except PDNSError as exc:
+                if exc.status_code == 401:
+                    logger.debug("skipped unauthorized zone")
+                    self._details = {'rrsets': []}
+                else:
+                    raise
         return self._details
 
     @property
     def records(self):
         logger.info("getting %s zone records" % self.name)
         return self.details['rrsets']
+
+    @property
+    def soa(self):
+        soa_rrset = [rec for rec in self.records if rec['type'] == 'SOA'][0]
+        return PDNSSoa(soa_rrset)
 
     def get_record(self, name):
         """Get record data
@@ -351,7 +400,7 @@ class PDNSZone(PDNSEndpointBase):
         :return: Record data as :class:`dict`
         """
         logger.info("getting zone record: %s" % name)
-        for record in self.details['rrsets']:
+        for record in self.records:
             if name == record['name']:
                 logger.info("record found: %s" % name)
                 return record
