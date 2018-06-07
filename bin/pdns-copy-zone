@@ -1,0 +1,144 @@
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
+#
+#  PowerDNS web api python client and interface (python-powerdns)
+#
+#  Copyright (C) 2018 Denis Pompilio (jawa) <dpompilio@vente-privee.com>
+#
+#  This file is part of python-powerdns
+#
+#  This program is free software; you can redistribute it and/or
+#  modify it under the terms of the MIT License.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  MIT License for more details.
+#
+#  You should have received a copy of the MIT License along with this
+#  program; if not, see <https://opensource.org/licenses/MIT>.
+
+import argparse
+from datetime import date
+from pprint import pprint
+
+import powerdns
+
+
+LOG = powerdns.basic_logger("powerdns")
+
+
+def ensure_canonical(name):
+    """Ensure that name is canonical
+
+    :param str name: Name
+    :return: Canonical name
+    :rtype: str
+    """
+    if not name.endswith('.'):
+        name += "."
+    return name
+
+
+def copy_rrset(rrset, c_zone, n_zone):
+    """Copy and transform rrset for new zone
+
+    :param dict rrset: RRset data
+    :param str c_zone: Current zone name (canonical)
+    :param str n_zone: New zone name (canonical)
+    :return: New RRset
+    :rtype: dict
+    """
+    if rrset['name'] == c_zone or rrset['name'].endswith("." + c_zone):
+        rrset['name'] = rrset['name'].replace(c_zone, n_zone)
+
+    if rrset['type'] == "CNAME":
+        rrset['records'] = update_cname(rrset['records'], c_zone, n_zone)
+
+    return rrset
+
+
+def update_cname(records, c_zone, n_zone):
+    """
+
+    :param list records: CNAME RRset records list
+    :param str c_zone: Current zone name (canonical)
+    :param str n_zone: New zone name (canonical)
+    :return: Updated records
+    :rtype: list
+    """
+    new_records = []
+    for rec in records:
+        if rec['content'] == c_zone or rec['content'].endswith("." + c_zone):
+            rec['content'] = rec['content'].replace(c_zone, n_zone)
+        new_records.append(rec)
+    return new_records
+
+
+# -- Main --
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='PowerDNS zone cloner')
+    parser.add_argument('-A', '--api', dest='api', required=True,
+                        help="PowerDNS api (eg. https://api.domain.tld/api/v1")
+    parser.add_argument('-K', '--key', dest='apikey', required=True,
+                        help="PowerDNS api key")
+    parser.add_argument('-z', '--zone', dest='zone', required=True,
+                        help="Zone name (canonical)")
+    parser.add_argument('-n', '--new-zone', dest='new_zone', required=True,
+                        help="New zone name (canonical)")
+    parser.add_argument('-u', '--update', dest='u_zones',
+                        help="Also update impacted zones (comma separated)")
+
+    args = parser.parse_args()
+
+    api_client = powerdns.PDNSApiClient(
+        api_endpoint=args.api, api_key=args.apikey, verify=False)
+    api = powerdns.PDNSEndpoint(api_client)
+
+    # ensure zone names are canonical
+    zone_name = ensure_canonical(args.zone)
+    new_zone_name = ensure_canonical(args.new_zone)
+
+    if api.servers[0].get_zone(new_zone_name):
+        print("New zone '%s' already exists!" % new_zone_name)
+        exit()
+
+    zone = api.servers[0].get_zone(zone_name)
+
+    new_rrsets = []
+    for rrset in zone.details['rrsets']:
+        new_rrsets.append(copy_rrset(rrset, zone_name, new_zone_name))
+
+    api.servers[0].create_zone(
+        name=new_zone_name,
+        kind=zone.details['kind'],
+        masters=zone.details['masters'],
+        nameservers=[],
+        rrsets=new_rrsets
+    )
+
+    print("New zone created: %s" % new_zone_name)
+
+    if not args.u_zones:
+        exit()
+
+    u_zones = [ensure_canonical(name) for name in args.u_zones.split(',')]
+    for uzone_name in u_zones:
+        uzone = api.servers[0].get_zone(uzone_name)
+        updated_rrsets = []
+        for rrset in uzone.details['rrsets']:
+            if rrset['type'] == "CNAME":
+                recs = update_cname(rrset['records'], zone_name, new_zone_name)
+                updated_rrsets.append(
+                    powerdns.RRSet(
+                        name=rrset['name'],
+                        rtype=rrset['type'],
+                        ttl=rrset['ttl'],
+                        records=[tuple(rec.values()) for rec in recs]
+                    )
+                )
+        if updated_rrsets:
+            uzone.create_records(updated_rrsets)
+            print("Updated zone: %s" % uzone_name)
+        else:
+            print("Zone unchanged: %s" % uzone_name)
