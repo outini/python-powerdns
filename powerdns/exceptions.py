@@ -17,6 +17,10 @@
 #  You should have received a copy of the MIT License along with this
 #  program; if not, see <https://opensource.org/licenses/MIT>.
 
+"""
+powerdns.exceptions - PowerDNS API interface exceptions
+"""
+
 
 class PDNSCanonicalError(SyntaxError):
     """PowerDNS Canonical Error

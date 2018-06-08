@@ -17,6 +17,10 @@
 #  You should have received a copy of the MIT License along with this
 #  program; if not, see <https://opensource.org/licenses/MIT>.
 
+"""
+powerdns - PowerDNS API client and interface
+"""
+
 import logging
 from logging.handlers import SysLogHandler
 from .client import PDNSApiClient

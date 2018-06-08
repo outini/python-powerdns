@@ -17,14 +17,18 @@
 #  You should have received a copy of the MIT License along with this
 #  program; if not, see <https://opensource.org/licenses/MIT>.
 
+"""
+powerdns.client - PowerDNS API client
+"""
+
 import json
-import requests
 import logging
 from functools import partial
+import requests
 from .exceptions import PDNSError
 
 
-logger = logging.getLogger(__name__)
+LOG = logging.getLogger(__name__)
 
 
 class PDNSApiClient(object):
@@ -67,13 +71,13 @@ class PDNSApiClient(object):
     """
     def __init__(self, api_endpoint, api_key, verify=True, timeout=None):
         """Initialization"""
-        self.api_endpoint = api_endpoint
-        self.api_key = api_key
-        self.verify = verify
-        self.timeout = timeout
+        self._api_endpoint = api_endpoint
+        self._api_key = api_key
+        self._verify = verify
+        self._timeout = timeout
 
         if not verify:
-            logger.debug("removing insecure https connection warnings")
+            LOG.debug("removing insecure https connection warnings")
             import urllib3
             urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -102,14 +106,14 @@ class PDNSApiClient(object):
 
         :raise PDNSError: If request's response is an error.
         """
-        if self.api_key:
-            self.request_headers['X-API-Key'] = self.api_key
+        if self._api_key:
+            self.request_headers['X-API-Key'] = self._api_key
 
-        logger.debug("request: original path is %s" % path)
+        LOG.debug("request: original path is %s", path)
         if not path.startswith('http://') and not path.startswith('https://'):
             if path.startswith('/'):
                 path = path.lstrip('/')
-            url = "%s/%s" % (self.api_endpoint, path)
+            url = "%s/%s" % (self._api_endpoint, path)
         else:
             url = path
 
@@ -117,18 +121,18 @@ class PDNSApiClient(object):
             data = {}
         data = json.dumps(data)
 
-        logger.info("request: %s %s" % (method, url))
-        logger.debug("headers: %s" % self.request_headers)
-        logger.debug("data: %s" % data)
+        LOG.info("request: %s %s", method, url)
+        LOG.debug("headers: %s", self.request_headers)
+        LOG.debug("data: %s", data)
         response = requests.request(method, url,
                                     data=data,
                                     headers=self.request_headers,
-                                    timeout=self.timeout,
-                                    verify=self.verify,
+                                    timeout=self._timeout,
+                                    verify=self._verify,
                                     **kwargs)
 
-        logger.info("request response code: %d" % response.status_code)
-        logger.debug("response: %s" % response.text)
+        LOG.info("request response code: %d", response.status_code)
+        LOG.debug("response: %s", response.text)
 
         # Try to handle basic return
         if response.status_code in [200, 201]:
@@ -143,8 +147,8 @@ class PDNSApiClient(object):
             except Exception:
                 error_message = response.text
 
-        logger.error("raising error code %d" % response.status_code)
-        logger.debug("error response: %s" % error_message)
+        LOG.error("raising error code %d", response.status_code)
+        LOG.debug("error response: %s", error_message)
         raise PDNSError(url=response.url,
                         status_code=response.status_code,
                         message=error_message)

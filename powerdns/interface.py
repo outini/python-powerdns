@@ -17,13 +17,17 @@
 #  You should have received a copy of the MIT License along with this
 #  program; if not, see <https://opensource.org/licenses/MIT>.
 
+"""
+powerdns.interface - PowerDNS API interface
+"""
+
 import logging
 import os
 import json
 from .exceptions import PDNSCanonicalError
 
 
-logger = logging.getLogger(__name__)
+LOG = logging.getLogger(__name__)
 
 
 class PDNSEndpointBase(object):
@@ -72,13 +76,13 @@ class PDNSEndpoint(PDNSEndpointBase):
 
         .. seealso:: https://doc.powerdns.com/md/httpapi/api_spec/#servers
         """
-        logger.info("listing available PowerDNS servers")
+        LOG.info("listing available PowerDNS servers")
         if not self._servers:
-            logger.info("getting available servers from API")
+            LOG.info("getting available servers from API")
             self._servers = [PDNSServer(self.api_client, data)
                              for data in self._get('/servers')]
-        logger.info("%d server(s) listed" % len(self._servers))
-        logger.debug("listed servers: %s" % self._servers)
+        LOG.info("%d server(s) listed", len(self._servers))
+        LOG.debug("listed servers: %s", self._servers)
         return self._servers
 
 
@@ -110,10 +114,10 @@ class PDNSServer(PDNSEndpointBase):
     def __init__(self, api_client, api_data):
         """Initialization method"""
         self._api_data = api_data
-        self.id = api_data['id']
+        self.sid = api_data['id']
         self.version = api_data['version']
         self.daemon_type = api_data['daemon_type']
-        self.url = '/servers/%s' % self.id
+        self.url = '/servers/%s' % self.sid
         self._zones = None
         super(PDNSServer, self).__init__(api_client)
 
@@ -121,7 +125,7 @@ class PDNSServer(PDNSEndpointBase):
         return self.__str__()
 
     def __str__(self):
-        return 'PDNSServer:%s' % self.id
+        return 'PDNSServer:%s' % self.sid
 
     @property
     def config(self):
@@ -129,7 +133,7 @@ class PDNSServer(PDNSEndpointBase):
 
         .. seealso:: https://doc.powerdns.com/md/httpapi/api_spec/#url-apiv1serversserver95idconfig
         """
-        logger.info("getting server configuration")
+        LOG.info("getting server configuration")
         return self._get('%s/config' % self.url)
 
     @property
@@ -142,13 +146,13 @@ class PDNSServer(PDNSEndpointBase):
 
         .. seealso:: https://doc.powerdns.com/md/httpapi/api_spec/#zone95collection
         """
-        logger.info("listing available zones")
+        LOG.info("listing available zones")
         if not self._zones:
-            logger.info("getting available zones from API")
+            LOG.info("getting available zones from API")
             self._zones = [PDNSZone(self.api_client, self, data)
                            for data in self._get('%s/zones' % self.url)]
-        logger.info("%d zone(s) listed" % len(self._zones))
-        logger.debug("listed zones: %s" % self._zones)
+        LOG.info("%d zone(s) listed", len(self._zones))
+        LOG.debug("listed zones: %s", self._zones)
         return self._zones
 
     def search(self, search_term, max_result=100):
@@ -191,30 +195,31 @@ class PDNSServer(PDNSEndpointBase):
               "zone_id": "<zoneid>"
             }
         """
-        logger.info("api search terms: %s" % search_term)
+        LOG.info("api search terms: %s", search_term)
         results = self._get('%s/search-data?q=%s&max=%d' % (
             self.url,
             search_term,
             max_result
         ))
-        logger.info("%d search result(s)" % len(results))
-        logger.debug("search results: %s" % results)
+        LOG.info("%d search result(s)", len(results))
+        LOG.debug("search results: %s", results)
         return results
 
+    # pylint: disable=inconsistent-return-statements
     def get_zone(self, name):
         """Get zone by name
 
         :param str name: Zone name (canonical)
-        :return: Zone as :class:`PDNSZone` instance
+        :return: Zone as :class:`PDNSZone` instance or :obj:`None`
 
         .. seealso:: https://doc.powerdns.com/md/httpapi/api_spec/#zone95collection
         """
-        logger.info("getting zone: %s" % name)
+        LOG.info("getting zone: %s", name)
         for zone in self.zones:
             if zone.name == name:
-                logger.debug("found zone: %s" % zone)
+                LOG.debug("found zone: %s", zone)
                 return zone
-        logger.info("zone not found: %s" % name)
+        LOG.info("zone not found: %s", name)
 
     def suggest_zone(self, r_name):
         """Suggest best matching zone from existing zone
@@ -230,7 +235,7 @@ class PDNSServer(PDNSEndpointBase):
         :param str r_name: Record canonical name
         :return: Zone as :class:`PDNSZone` object
         """
-        logger.info("suggesting zone for: %s" % r_name)
+        LOG.info("suggesting zone for: %s", r_name)
         if not r_name.endswith('.'):
             raise PDNSCanonicalError(r_name)
         best_match = ""
@@ -240,10 +245,11 @@ class PDNSServer(PDNSEndpointBase):
                     best_match = zone
                 if len(zone.name) > len(best_match.name):
                     best_match = zone
-        logger.info("zone best match: %s" % best_match)
+        LOG.info("zone best match: %s", best_match)
         return best_match
 
-    # Todo: Full implementation of zones endpoint
+    # pylint: disable=inconsistent-return-statements
+    # TODO: Full implementation of zones endpoint
     def create_zone(self, name, kind, nameservers, masters=None, servers=None,
                     rrsets=None):
         """Create a new zone
@@ -254,7 +260,7 @@ class PDNSServer(PDNSEndpointBase):
         :param list masters: Zone masters
         :param list servers: List of forwarded-to servers (recursor only)
         :param list rrsets: Resource records sets
-        :return: Created zone as :class:`PDNSZone` instance
+        :return: Created zone as :class:`PDNSZone` instance or :obj:`None`
 
         .. seealso:: https://doc.powerdns.com/md/httpapi/api_spec/#url-apiv1serversserver95idzones
         """
@@ -270,13 +276,13 @@ class PDNSServer(PDNSEndpointBase):
         if rrsets:
             zone_data['rrsets'] = rrsets
 
-        logger.info("creation of zone: %s" % name)
+        LOG.info("creation of zone: %s", name)
         zone_data = self._post("%s/zones" % self.url, data=zone_data)
 
         if zone_data:
             # reset server object cache
             self._zones = None
-            logger.info("zone %s successfully created" % name)
+            LOG.info("zone %s successfully created", name)
             return PDNSZone(self.api_client, self, zone_data)
 
     def delete_zone(self, name):
@@ -287,30 +293,34 @@ class PDNSServer(PDNSEndpointBase):
         """
         # reset server object cache
         self._zones = None
-        logger.info("deletion of zone: %s" % name)
+        LOG.info("deletion of zone: %s", name)
         return self._delete("%s/zones/%s" % (self.url, name))
 
+    # pylint: disable=inconsistent-return-statements
     def restore_zone(self, json_file):
         """Restore a zone from a json file produced by :meth:`PDNSZone.backup`
 
         :param str json_file: Backup file
-        :return: Restored zone as :class:`PDNSZone` instance
+        :return: Restored zone as :class:`PDNSZone` instance or :obj:`None`
         """
         with open(json_file) as backup_fp:
             zone_data = json.load(backup_fp)
         self._zones = None
         zone_name = zone_data['name']
         zone_data['nameservers'] = []
-        logger.info("restoration of zone: %s" % zone_name)
+        LOG.info("restoration of zone: %s", zone_name)
         zone_data = self._post("%s/zones" % self.url, data=zone_data)
         if zone_data:
-            logger.info("zone successfully restored: %s" % zone_data['name'])
+            LOG.info("zone successfully restored: %s", zone_data['name'])
             return PDNSZone(self.api_client, self, zone_data)
-        logger.info("%s zone restoration failed" % zone_name)
+        LOG.info("%s zone restoration failed", zone_name)
 
 
 class PDNSZone(PDNSEndpointBase):
     """Powerdns API Zone Endpoint
+
+    .. autoattribute:: details
+    .. autoattribute:: records
 
     :param PDNSApiClient api_client: Cachet API client instance
     :param PDNSServer server: PowerDNS server instance
@@ -329,33 +339,36 @@ class PDNSZone(PDNSEndpointBase):
         return self.__str__()
 
     def __str__(self):
-        return 'PDNSZone:%s:%s' % (self.server.id, self.name)
+        return 'PDNSZone:%s:%s' % (self.server.sid, self.name)
 
     @property
     def details(self):
-        logger.info("getting %s zone details" % self.name)
+        """Get zone's detailled data"""
+        LOG.info("getting %s zone details", self.name)
         if not self._details:
-            logger.info("getting %s zone details from api" % self.name)
+            LOG.info("getting %s zone details from api", self.name)
             self._details = self._get(self.url)
         return self._details
 
     @property
     def records(self):
-        logger.info("getting %s zone records" % self.name)
+        """Get zone's records"""
+        LOG.info("getting %s zone records", self.name)
         return self.details['rrsets']
 
+    # pylint: disable=inconsistent-return-statements
     def get_record(self, name):
         """Get record data
 
         :param str name: Record name
-        :return: Record data as :class:`dict`
+        :return: Record data as :class:`dict` or :obj:`None`
         """
-        logger.info("getting zone record: %s" % name)
+        LOG.info("getting zone record: %s", name)
         for record in self.details['rrsets']:
             if name == record['name']:
-                logger.info("record found: %s" % name)
+                LOG.info("record found: %s", name)
                 return record
-        logger.info("record not found: %s" % name)
+        LOG.info("record not found: %s", name)
 
     def create_records(self, rrsets):
         """Create resource record sets
@@ -363,8 +376,8 @@ class PDNSZone(PDNSEndpointBase):
         :param list rrsets: Resource record sets
         :return: Query response
         """
-        logger.info("creating %d record(s) to %s" % (len(rrsets), self.name))
-        logger.debug("records: %s" % rrsets)
+        LOG.info("creating %d record(s) to %s", len(rrsets), self.name)
+        LOG.debug("records: %s", rrsets)
         for rrset in rrsets:
             rrset.ensure_canonical(self.name)
             rrset['changetype'] = 'REPLACE'
@@ -379,8 +392,8 @@ class PDNSZone(PDNSEndpointBase):
         :param list rrsets: Resource record sets
         :return: Query response
         """
-        logger.info("deletion of %d records from %s" % (len(rrsets), self.name))
-        logger.debug("records: %s" % rrsets)
+        LOG.info("deletion of %d records from %s", len(rrsets), self.name)
+        LOG.debug("records: %s", rrsets)
         for rrset in rrsets:
             rrset.ensure_canonical(self.name)
             rrset['changetype'] = 'DELETE'
@@ -398,11 +411,11 @@ class PDNSZone(PDNSEndpointBase):
         If filename is not provided, destination file is generated with zone
         name (stripping the last dot) and extension `.json`.
         """
-        logger.info("backup of zone: %s" % self.name)
+        LOG.info("backup of zone: %s", self.name)
         if not filename:
             filename = self.name.rstrip('.') + ".json"
         json_file = os.path.join(directory, filename)
-        logger.info("backup file is %s" % json_file)
+        LOG.info("backup file is %s", json_file)
 
         with open(json_file, "w") as backup_fp:
             if pretty_json:
@@ -413,9 +426,10 @@ class PDNSZone(PDNSEndpointBase):
                           sort_keys=True)
             else:
                 json.dump(self.details, backup_fp)
-        logger.info("zone %s successfully saved" % self.name)
+        LOG.info("zone %s successfully saved", self.name)
 
 
+# pylint: disable=line-too-long
 class RRSet(dict):
     """Resource record data for PowerDNS API
 
@@ -429,7 +443,7 @@ class RRSet(dict):
     """
     def __init__(self, name, rtype, records, ttl=3600, changetype='REPLACE'):
         """Initialization"""
-        logger.debug("new rrset object for %s" % name)
+        LOG.debug("new rrset object for %s", name)
         super(RRSet, self).__init__()
         self.raw_records = records
         self['name'] = name
@@ -469,15 +483,15 @@ class RRSet(dict):
             This method update :class:`RRSet` data to ensure the use of
             canonical names. It is actually not possible to revert values.
         """
-        logger.debug("ensuring rrset %s is canonical" % self['name'])
+        LOG.debug("ensuring rrset %s is canonical", self['name'])
         if not zone.endswith('.'):
             raise PDNSCanonicalError(zone)
         if not self['name'].endswith('.'):
-            logger.debug("transforming %s with %s" % (self['name'], zone))
+            LOG.debug("transforming %s with %s", self['name'], zone)
             self['name'] += ".%s" % zone
         if self['type'] == 'CNAME':
             for record in self['records']:
                 if not record['content'].endswith('.'):
-                    logger.debug("transforming %s with %s" % (
-                        record['content'], zone))
+                    LOG.debug("transforming %s with %s",
+                              record['content'], zone)
                     record['content'] += ".%s" % zone
