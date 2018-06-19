@@ -28,7 +28,7 @@ from .interface import PDNSEndpoint, RRSet
 
 
 #: Current version of the package as :class:`str`.
-__version__ = "0.1.1"
+__version__ = "0.2.0"
 
 LOG_LEVELS = [
     logging.ERROR,
