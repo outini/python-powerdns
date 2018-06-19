@@ -18,13 +18,13 @@
 #  program; if not, see <https://opensource.org/licenses/MIT>.
 
 import os
-from distutils.core import setup
+import setuptools
 
 
 if __name__ == '__main__':
     readme_file = os.path.join(os.path.dirname(__file__), 'README.md')
     release = "0.1.1"
-    setup(
+    setuptools.setup(
         name="python-powerdns",
         version=release,
         url="https://github.com/vente-privee/python-powerdns",
