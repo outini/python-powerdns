@@ -34,6 +34,7 @@ if __name__ == '__main__':
         maintainer_email="dpompilio@vente-privee.com",
         description="PowerDNS web api python client and interface",
         long_description=open(readme_file).read(),
+        long_description_content_type='text/markdown',
         license="MIT",
         platforms=['UNIX'],
         scripts=['bin/pdns-create-zone'],
