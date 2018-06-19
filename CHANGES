@@ -4,6 +4,9 @@ python-powerdns - PowerDNS web api python client and interface
 Contact: Denis 'jawa' Pompilio <dpompilio@vente-privee.com>
 Sources: https://github.com/vente-privee/python-powerdns
 
+=== v0.2.1 19/06/2018 ===
+    * Setup script improvement for PyPi publication
+
 === v0.2.0 19/06/2018 ===
     * Modified setup.py for wheels creation
     * PyLint and documentation
