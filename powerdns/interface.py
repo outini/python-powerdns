@@ -251,8 +251,8 @@ class PDNSServer(PDNSEndpointBase):
     # pylint: disable=inconsistent-return-statements
     # TODO: Full implementation of zones endpoint
     def create_zone(self, name, kind, nameservers, masters=None, servers=None,
-                    rrsets=None):
-        """Create a new zone
+                    rrsets=None, update=False):
+        """Create or update a (new) zone
 
         :param str name: Name of zone
         :param str kind: Type of zone
@@ -260,6 +260,7 @@ class PDNSServer(PDNSEndpointBase):
         :param list masters: Zone masters
         :param list servers: List of forwarded-to servers (recursor only)
         :param list rrsets: Resource records sets
+        :param bool update: If the zone need to be updated or created
         :return: Created zone as :class:`PDNSZone` instance or :obj:`None`
 
         .. seealso:: https://doc.powerdns.com/md/httpapi/api_spec/#url-apiv1serversserver95idzones
@@ -276,13 +277,22 @@ class PDNSServer(PDNSEndpointBase):
         if rrsets:
             zone_data['rrsets'] = rrsets
 
-        LOG.info("creation of zone: %s", name)
-        zone_data = self._post("%s/zones" % self.url, data=zone_data)
+        if update is True:
+            LOG.info("update of zone: %s", name)
+            get_zone = self.get_zone(name).details
+            zone_id = get_zone['id']
+            zone_data = self._patch("{}/zones/{}".format(self.url,
+                                                         zone_id),
+                                    data=zone_data)
+
+        else:
+            LOG.info("creation of zone: %s", name)
+            zone_data = self._post("%s/zones" % self.url, data=zone_data)
 
         if zone_data:
             # reset server object cache
             self._zones = None
-            LOG.info("zone %s successfully created", name)
+            LOG.info("zone %s successfully processed", name)
             return PDNSZone(self.api_client, self, zone_data)
 
     def delete_zone(self, name):

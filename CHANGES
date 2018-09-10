@@ -4,6 +4,9 @@ python-powerdns - PowerDNS web api python client and interface
 Contact: Denis 'jawa' Pompilio <dpompilio@vente-privee.com>
 Sources: https://github.com/vente-privee/python-powerdns
 
+=== v0.2.3 02/10/2018 ===
+    * feat(interfaces.py): Add update to deal with PDNS field
+
 === v0.2.2 10/09/2018 ===
     * fix(interfaces.py): fix get_record method
 
