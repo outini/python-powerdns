@@ -361,14 +361,19 @@ class PDNSZone(PDNSEndpointBase):
         """Get record data
 
         :param str name: Record name
-        :return: Record data as :class:`dict` or :obj:`None`
+        :return: Records data as :func:`list`
         """
+        records = []
         LOG.info("getting zone record: %s", name)
         for record in self.details['rrsets']:
             if name == record['name']:
                 LOG.info("record found: %s", name)
-                return record
-        LOG.info("record not found: %s", name)
+                records.append(record)
+
+        if not records:
+            LOG.info("record not found: %s", name)
+
+        return records
 
     def create_records(self, rrsets):
         """Create resource record sets
