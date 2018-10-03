@@ -464,9 +464,18 @@ class RRSet(dict):
             self['records'].append({'content': record, 'disabled': disabled})
 
     def __str__(self):
-        return "(ttl=%d) %s  %s  %s)" % (self['ttl'], self['name'],
+        records = []
+
+        for rr in self.raw_records:
+            if isinstance(rr, tuple) or isinstance(rr, list):
+                records += [rr[0]]
+            else:
+                records += [rr]
+
+        return "(ttl=%d) %s  %s  %s)" % (self['ttl'],
+                                         self['name'],
                                          self['type'],
-                                         [r[0] for r in self.raw_records])
+                                         records)
 
     def __repr__(self):
         return "powerdns.RRSet(\"%s\", \"%s\", \"%s\", %d, \"%s\")" % (
