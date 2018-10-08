@@ -401,7 +401,7 @@ class PDNSZone(PDNSEndpointBase):
         self._details = None
         return self._patch(self.url, data={'rrsets': rrsets})
 
-    def delete_record(self, rrsets):
+    def delete_records(self, rrsets):
         """Delete resource record sets
 
         :param list rrsets: Resource record sets
