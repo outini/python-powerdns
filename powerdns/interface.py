@@ -468,7 +468,7 @@ class RRSet(dict):
         self['records'] = []
         for record in records:
             disabled = False
-            if isinstance(record, tuple):
+            if isinstance(record, tuple) or isinstance(record, list):
                 disabled = record[1]
                 record = record[0]
             self['records'].append({'content': record, 'disabled': disabled})
