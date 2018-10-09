@@ -109,7 +109,7 @@ zone.create_records([
     powerdns.RRSet('d', 'CNAME', ['a'])
 ])
 
-zone.delete_record([
+zone.delete_records([
     powerdns.RRSet('a', 'A', [('1.1.1.1', False)]),
     powerdns.RRSet('d', 'CNAME', ['a'])
 ])
