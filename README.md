@@ -60,9 +60,9 @@ powerdns.client INFO: request response code: 201
 powerdns.interface INFO: zone myzone.domain.tld. successfully created
 ```
 
-## Exemples
+## Examples
 
-Basic initialization:
+**Basic initialization:**
 ```python
 import powerdns
 
@@ -73,7 +73,7 @@ api_client = powerdns.PDNSApiClient(api_endpoint=PDNS_API, api_key=PDNS_KEY)
 api = powerdns.PDNSEndpoint(api_client)
 ```
 
-Creation and deletion of zones:
+**Creation and deletion of zones:**
 ```python
 from datetime import date
 
@@ -98,9 +98,9 @@ print(zone.details)
 api.servers[0].delete_zone(zone.name)
 ```
 
-Creation and deletion of DNS records:
+**Creation and deletion of DNS records:**
 ```python
-zone = api.server[0].get_zone("test.python-powerdns.domain.tld.")
+zone = api.servers[0].get_zone("test.python-powerdns.domain.tld.")
 
 zone.create_records([
     powerdns.RRSet('a', 'A', [('1.1.1.1', False)]),
@@ -115,7 +115,20 @@ zone.delete_records([
 ])
 ```
 
-Backup and restoration of zones:
+Where (for the first RRSet):
+
+  * `a` is the NAME of the record
+
+  * `A` is the TYPE of the record
+
+  * `[('1.1.1.1', False)]` is a list of RDATA entries (tuples or just strings),
+where:
+
+    * `'1.1.1.1'` is the RDATA
+
+    * `False` tells that this RDATA entry is NOT disabled
+
+**Backup and restoration of zones:**
 ```python
 # Backup every zone of every PowerDNS server
 for server in api.servers:
