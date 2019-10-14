@@ -1,8 +1,8 @@
 python-powerdns - PowerDNS web api python client and interface
 ==============================================================
 
-Contact: Denis 'jawa' Pompilio <dpompilio@vente-privee.com>
-Sources: https://github.com/vente-privee/python-powerdns
+Contact: Denis 'jawa' Pompilio <denis.pompilio@gmail.com>
+Sources: https://github.com/outini/python-powerdns
 
 === v0.2.5 08/10/2018 ===
     * fix(interfaces.py): Allow list and not just tuple as a record type

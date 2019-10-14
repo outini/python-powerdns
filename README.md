@@ -2,9 +2,9 @@
 
 # python-powerdns -- PowerDNS web api python client and interface
 
-**Contact:** Denis 'jawa' Pompilio <dpompilio@vente-privee.com>
+**Contact:** Denis 'jawa' Pompilio <denis.pompilio@gmail.com>
 
-**Sources:** https://github.com/vente-privee/python-powerdns
+**Sources:** https://github.com/outini/python-powerdns
 
 ## About
 
@@ -158,6 +158,6 @@ MIT LICENSE *(see LICENSE file)*
 ```
 
 [1]: https://img.shields.io/badge/python-2.7,3.4+-blue.svg
-[1l]: https://github.com/vente-privee/python-powerdns
+[1l]: https://github.com/outini/python-powerdns
 [2]: https://img.shields.io/badge/license-MIT-blue.svg
-[2l]: https://github.com/vente-privee/python-powerdns
+[2l]: https://github.com/outini/python-powerdns

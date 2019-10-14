@@ -2,7 +2,7 @@
 #
 #  PowerDNS web api python client and interface (python-powerdns)
 #
-#  Copyright (C) 2018 Denis Pompilio (jawa) <dpompilio@vente-privee.com>
+#  Copyright (C) 2018 Denis Pompilio (jawa) <denis.pompilio@gmail.com>
 #
 #  This file is part of python-powerdns
 #
@@ -27,11 +27,11 @@ if __name__ == '__main__':
     setuptools.setup(
         name="python-powerdns",
         version=release,
-        url="https://github.com/vente-privee/python-powerdns",
+        url="https://github.com/outini/python-powerdns",
         author="Denis Pompilio (jawa)",
-        author_email="dpompilio@vente-privee.com",
+        author_email="denis.pompilio@gmail.com",
         maintainer="Denis Pompilio (jawa)",
-        maintainer_email="dpompilio@vente-privee.com",
+        maintainer_email="denis.pompilio@gmail.com",
         description="PowerDNS web api python client and interface",
         long_description=open(readme_file).read(),
         long_description_content_type='text/markdown',
