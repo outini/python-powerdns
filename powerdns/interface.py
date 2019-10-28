@@ -62,10 +62,10 @@ class PDNSEndpoint(PDNSEndpointBase):
         super(PDNSEndpoint, self).__init__(api_client)
 
     def __repr__(self):
-        return 'PDNSEndpoint(%s)' % self.api_client
+        return 'PDNSEndpoint(%s)' % repr(self.api_client)
 
     def __str__(self):
-        return 'PDNSEndpoint:%s' % self.api_client.api_endpoint
+        return str(self.api_client)
 
     @property
     def servers(self):
@@ -113,6 +113,7 @@ class PDNSServer(PDNSEndpointBase):
     """
     def __init__(self, api_client, api_data):
         """Initialization method"""
+        self._api_client = api_client
         self._api_data = api_data
         self.sid = api_data['id']
         self.version = api_data['version']
@@ -122,10 +123,12 @@ class PDNSServer(PDNSEndpointBase):
         super(PDNSServer, self).__init__(api_client)
 
     def __repr__(self):
-        return self.__str__()
+        return 'PDNSServer(%s, %s)' % (
+            repr(self._api_client), repr(self._api_data)
+        )
 
     def __str__(self):
-        return 'PDNSServer:%s' % self.sid
+        return self.sid
 
     @property
     def config(self):
@@ -338,6 +341,7 @@ class PDNSZone(PDNSEndpointBase):
     """
     def __init__(self, api_client, server, api_data):
         """Initialization method"""
+        self._api_client = api_client
         self._api_data = api_data
         self.server = server
         self.name = api_data['name']
@@ -346,10 +350,12 @@ class PDNSZone(PDNSEndpointBase):
         super(PDNSZone, self).__init__(api_client)
 
     def __repr__(self):
-        return self.__str__()
+        return "PDNSZone(%s, %s, %s)" % (
+            repr(self._api_client), repr(self.server), repr(self._api_data)
+        )
 
     def __str__(self):
-        return 'PDNSZone:%s:%s' % (self.server.sid, self.name)
+        return self.name
 
     @property
     def details(self):
@@ -473,6 +479,15 @@ class RRSet(dict):
                 record = record[0]
             self['records'].append({'content': record, 'disabled': disabled})
 
+    def __repr__(self):
+        return "RRSet(%s, %s, %s, %s, %s)" % (
+            repr(self['name']),
+            repr(self['type']),
+            repr(self.raw_records),
+            repr(self['ttl']),
+            repr(self['changetype'])
+        )
+
     def __str__(self):
         records = []
 
@@ -486,14 +501,6 @@ class RRSet(dict):
                                          self['name'],
                                          self['type'],
                                          records)
-
-    def __repr__(self):
-        return "powerdns.RRSet(\"%s\", \"%s\", \"%s\", %d, \"%s\")" % (
-            self['name'],
-            self['type'],
-            self.raw_records,
-            self['ttl'],
-            self['changetype'])
 
     def ensure_canonical(self, zone):
         """Ensure every record names are canonical

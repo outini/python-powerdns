@@ -93,6 +93,15 @@ class PDNSApiClient(object):
         self.patch = partial(self.request, method='PATCH')
         self.delete = partial(self.request, method='DELETE')
 
+    def __repr__(self):
+        return "PDNSApiClient(%s, %s, verify=%s, timeout=%s)" % (
+            repr(self._api_endpoint), repr(self._api_key),
+            repr(self._verify), repr(self._timeout)
+        )
+
+    def __str__(self):
+        return self._api_endpoint
+
     def request(self, path, method, data=None, **kwargs):
         """Handle requests to API
 
