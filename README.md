@@ -145,17 +145,6 @@ api.servers[0].restore_zone(zone_file)
 
 MIT LICENSE *(see LICENSE file)*
 
-## Miscellaneous
-
-```
-    ╚⊙ ⊙╝
-  ╚═(███)═╝
- ╚═(███)═╝
-╚═(███)═╝
- ╚═(███)═╝
-  ╚═(███)═╝
-   ╚═(███)═╝
-```
 
 [1]: https://img.shields.io/badge/python-2.7,3.4+-blue.svg
 [1l]: https://github.com/outini/python-powerdns
