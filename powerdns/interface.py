@@ -449,6 +449,11 @@ class PDNSZone(PDNSEndpointBase):
                 json.dump(self.details, backup_fp)
         LOG.info("zone %s successfully saved", self.name)
 
+    def notify(self):
+        """Trigger notification for zone updates"""
+        LOG.info("notify of zone: %s", self.name)
+        return self._put(self.url + '/notify')
+
 
 # pylint: disable=line-too-long
 class RRSet(dict):
