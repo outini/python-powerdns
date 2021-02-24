@@ -1,3 +1,5 @@
 build/*
 dist/*
 python_powerdns.egg-info/*
+*.pyc
+private_bin
