@@ -25,7 +25,6 @@ import logging
 import os
 import json
 import time
-from typing import List
 
 from .exceptions import PDNSCanonicalError
 
@@ -33,6 +32,8 @@ from .exceptions import PDNSCanonicalError
 LOG = logging.getLogger(__name__)
 
 
+# pylint: disable=useless-object-inheritance
+# pylint: disable=too-few-public-methods
 class PDNSEndpointBase(object):
     """Powerdns API Endpoint Base
 
@@ -255,6 +256,7 @@ class PDNSServer(PDNSEndpointBase):
         return best_match
 
     # pylint: disable=inconsistent-return-statements
+    # pylint: disable=too-many-arguments
     # TODO: Full implementation of zones endpoint
     def create_zone(self, name, kind, nameservers, masters=None, servers=None,
                     rrsets=None, update=False):
@@ -362,7 +364,7 @@ class PDNSZone(PDNSEndpointBase):
 
     @property
     def details(self):
-        """Get zone's detailled data"""
+        """Get zone's detailed data"""
         LOG.info("getting %s zone details", self.name)
         if not self._details:
             LOG.info("getting %s zone details from api", self.name)
@@ -431,6 +433,7 @@ class PDNSZone(PDNSEndpointBase):
 
         :param str directory: Directory to store json file
         :param str filename: Json file name
+        :param bool pretty_json: Enable pretty json display
 
         If filename is not provided, destination file is generated with zone
         name (stripping the last dot) and extension `.json`.
@@ -459,21 +462,21 @@ class PDNSZone(PDNSEndpointBase):
 
 
 # pylint: disable=line-too-long
+# pylint: disable=too-many-arguments
 class RRSet(dict):
-    """
-    Resource record data for PowerDNS API
+    """Resource record data for PowerDNS API
 
     :param str changetype: API keyword DELETE or REPLACE
     :param str name: Record name
     :param str rtype: Record type
     :param list records: List of Str or Tuple(content_str, disabled_bool)
     :param int ttl: Record time to live
-    :param list comments: Comments for this RRSet
+    :param list comments: list of Comments instances for this RRSet
 
     .. seealso:: https://doc.powerdns.com/md/httpapi/api_spec/#url-apiv1serversserver95idzoneszone95id
     """
     def __init__(self, name, rtype, records, ttl=3600, changetype='REPLACE',
-                 comments: List["Comment"] = None):
+                 comments=None):
         """Initialization"""
         LOG.debug("new rrset object for %s", name)
         super(RRSet, self).__init__()
@@ -485,7 +488,7 @@ class RRSet(dict):
         self['records'] = []
         for record in records:
             disabled = False
-            if isinstance(record, tuple) or isinstance(record, list):
+            if isinstance(record, (list, tuple)):
                 disabled = record[1]
                 record = record[0]
             self['records'].append({'content': record, 'disabled': disabled})
@@ -507,11 +510,11 @@ class RRSet(dict):
     def __str__(self):
         records = []
 
-        for rr in self.raw_records:
-            if isinstance(rr, tuple) or isinstance(rr, list):
-                records += [rr[0]]
+        for record in self.raw_records:
+            if isinstance(record, (list, tuple)):
+                records += [record[0]]
             else:
-                records += [rr]
+                records += [record]
 
         return "(ttl=%d) %s  %s  %s %s)" % (self['ttl'],
                                             self['name'],
@@ -546,9 +549,7 @@ class RRSet(dict):
 
 
 class Comment(dict):
-    """
-    Comment data for PowerDNS API RRSets
-
+    """Comment data for PowerDNS API RRSets
 
     :param str content: the content of the comment
     :param str account: the account
@@ -559,9 +560,10 @@ class Comment(dict):
     .. seealso:: https://doc.powerdns.com/md/httpapi/api_spec/#zone95collection
     """
 
-    def __init__(self, content: str, account: str = "", modified_at: int = None):
-        self["content"] = content
-        self["account"] = account
+    def __init__(self, content, account="", modified_at=None):
+        """Initialization"""
+        super(Comment, self).__init__(content=content, account=account)
+
         if modified_at is None:
             self["modified_at"] = int(time.time())
         else:
