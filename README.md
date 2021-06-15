@@ -102,8 +102,10 @@ api.servers[0].delete_zone(zone.name)
 ```python
 zone = api.servers[0].get_zone("test.python-powerdns.domain.tld.")
 
+comments = [powerdns.Comment("test comment", "admin")]
+
 zone.create_records([
-    powerdns.RRSet('a', 'A', [('1.1.1.1', False)]),
+    powerdns.RRSet('a', 'A', [('1.1.1.1', False)], comments=comments),
     powerdns.RRSet('b', 'A', ['1.1.1.2', '1.1.1.3']),
     powerdns.RRSet('c', 'A', [('1.1.1.4', False)]),
     powerdns.RRSet('d', 'CNAME', ['a'])
