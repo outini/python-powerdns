@@ -23,7 +23,7 @@ import setuptools
 
 if __name__ == '__main__':
     readme_file = os.path.join(os.path.dirname(__file__), 'README.md')
-    release = "1.0.0"
+    release = "2.0.0"
     setuptools.setup(
         name="python-powerdns",
         version=release,
