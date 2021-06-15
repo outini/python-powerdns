@@ -377,7 +377,6 @@ class PDNSZone(PDNSEndpointBase):
         LOG.info("getting %s zone records", self.name)
         return self.details['rrsets']
 
-    # pylint: disable=inconsistent-return-statements
     def get_record(self, name):
         """Get record data
 
