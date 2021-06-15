@@ -240,17 +240,17 @@ class PDNSServer(PDNSEndpointBase):
             zone:      another.domain.tld.
 
         :param str r_name: Record canonical name
-        :return: Zone as :class:`PDNSZone` object
+        :return: Zone as :class:`PDNSZone` object or :obj:`None`
         """
         LOG.info("suggesting zone for: %s", r_name)
         if not r_name.endswith('.'):
             raise PDNSCanonicalError(r_name)
-        best_match = ""
+        best_match = None
         for zone in self.zones:
             if r_name.endswith(zone.name):
                 if not best_match:
                     best_match = zone
-                if len(zone.name) > len(best_match.name):
+                if best_match and len(zone.name) > len(best_match.name):
                     best_match = zone
         LOG.info("zone best match: %s", best_match)
         return best_match
