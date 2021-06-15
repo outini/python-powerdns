@@ -31,6 +31,7 @@ from .exceptions import PDNSError
 LOG = logging.getLogger(__name__)
 
 
+# pylint: disable=too-many-instance-attributes
 class PDNSApiClient(object):
     """Powerdns API client
 
@@ -78,8 +79,9 @@ class PDNSApiClient(object):
 
         if not verify:
             LOG.debug("removing insecure https connection warnings")
-            import urllib3
-            urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+            requests.urllib3.disable_warnings(
+                requests.urllib3.exceptions.InsecureRequestWarning
+            )
 
         self.request_headers = {
             'Content-Type': 'application/json',
@@ -144,6 +146,7 @@ class PDNSApiClient(object):
         LOG.debug("response: %s", response.text)
 
         # Try to handle basic return
+        # pylint: disable=no-else-return
         if response.status_code in [200, 201]:
             return response.json()
         elif response.status_code == 204:
