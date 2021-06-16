@@ -1,4 +1,4 @@
-[![PythonSupport][1]][1l][![License][2]][2l]
+[![PythonSupport][1]][1l] [![License][2]][2l] [![PyPI version][3]][3l]
 
 # python-powerdns -- PowerDNS web api python client and interface
 
@@ -16,7 +16,9 @@ for the PowerDNS web API.
 ```bash
 python setup.py install
 ```
+
 or
+
 ```bash
 pip install python-powerdns
 ```
@@ -143,6 +145,31 @@ zone_file = "backups/pdns-server-01/my.domain.tld.json"
 api.servers[0].restore_zone(zone_file)
 ```
 
+## Tests
+
+### PowerDNS service
+
+A simple [Dockerfile] is provided to spawn a basic powerdns service for tests
+purposes. The container is built using:
+
+```bash
+docker build --tag pdns .
+```
+
+And started using:
+
+```bash
+docker run --rm -it pdns
+```
+
+### Python Unit-Tests
+
+Python unit-tests are available in the [tests] directory. Based on [unittests],
+those are run using `python -m unittests tests` or integrated in your IDE for
+development purposes.
+
+Those tests are very limited at the moment and will be improved in the future.
+
 ## License
 
 MIT LICENSE *(see LICENSE file)*
@@ -163,3 +190,8 @@ MIT LICENSE *(see LICENSE file)*
 [1l]: https://github.com/outini/python-powerdns
 [2]: https://img.shields.io/badge/license-MIT-blue.svg
 [2l]: https://github.com/outini/python-powerdns
+[3]: https://badge.fury.io/py/python-powerdns.svg
+[3l]: https://pypi.org/project/python-powerdns
+[Dockerfile]: files/Dockerfile
+[tests]: tests
+[unittests]: https://docs.python.org/3/library/unittest.html
