@@ -15,3 +15,6 @@ python-powerdns -- Interface
 
     .. autoclass:: powerdns.interface.RRSet
         :members:
+
+    .. autoclass:: powerdns.interface.Comment
+        :members:

@@ -30,7 +30,8 @@ language = None
 exclude_patterns = []
 pygments_style = 'friendly'
 todo_include_todos = False
-html_theme = "default"
+html_theme = "python_docs_theme"
+html_style = 'custom.css'
 htmlhelp_basename = 'python-powerdns-doc'
 
 intersphinx_mapping = {'https://docs.python.org/3/': None,
