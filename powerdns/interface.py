@@ -469,6 +469,8 @@ class RRSet(dict):
     :param str name: Record name
     :param str rtype: Record type
     :param list records: List of Str or Tuple(content_str, disabled_bool)
+                         or Dict with the keys "content" and optionally
+                         "disabled".
     :param int ttl: Record time to live
     :param list comments: list of Comments instances for this RRSet
 
@@ -487,6 +489,17 @@ class RRSet(dict):
         self['records'] = []
         for record in records:
             disabled = False
+            if isinstance(record, dict):
+                if set(record.keys()) > {"content", "disabled"}:
+                    raise ValueError(f"Dictionary { records } has more keys than 'content' and 'disabled'")
+                if "content" not in record.keys():
+                    raise ValueError(f"Dictionary { records } does not have the 'content' key.")
+                if "disabled" not in record.keys():
+                    record["disabled"] = False
+
+                self['records'].append(record)
+                continue
+
             if isinstance(record, (list, tuple)):
                 disabled = record[1]
                 record = record[0]
