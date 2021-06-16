@@ -4,7 +4,7 @@
 
 **Contact:** Denis 'jawa' Pompilio <denis.pompilio@gmail.com>
 
-**Sources:** https://github.com/outini/python-powerdns
+**Sources:** <https://github.com/outini/python-powerdns>
 
 ## About
 
@@ -25,7 +25,8 @@ pip install python-powerdns
 
 ## Helpers
 
-**pdns-zone-creator**
+### pdns-zone-creator
+
 ```bash
 usage: pdns-create-zone [-h] -A API -K APIKEY -z ZONE -o ORIGIN -c ZONE -d DNS
                         [-t TIMERS]
@@ -46,6 +47,7 @@ optional arguments:
   -t TIMERS, --timers TIMERS
                         Zone timers (eg. '28800 7200 604800 86400')
 ```
+
 ```bash
 ./bin/pdns-create-zone -A "https://api.domain.tld/api/v1" -K "xxxxxxxxx" \
                        -z "myzone.domain.tld." \
@@ -64,7 +66,8 @@ powerdns.interface INFO: zone myzone.domain.tld. successfully created
 
 ## Examples
 
-**Basic initialization:**
+### Basic initialization
+
 ```python
 import powerdns
 
@@ -75,7 +78,8 @@ api_client = powerdns.PDNSApiClient(api_endpoint=PDNS_API, api_key=PDNS_KEY)
 api = powerdns.PDNSEndpoint(api_client)
 ```
 
-**Creation and deletion of zones:**
+### Creation and deletion of zones
+
 ```python
 from datetime import date
 
@@ -100,7 +104,8 @@ print(zone.details)
 api.servers[0].delete_zone(zone.name)
 ```
 
-**Creation and deletion of DNS records:**
+### Creation and deletion of DNS records
+
 ```python
 zone = api.servers[0].get_zone("test.python-powerdns.domain.tld.")
 
@@ -121,18 +126,14 @@ zone.delete_records([
 
 Where (for the first RRSet):
 
-  * `a` is the NAME of the record
+* `a` is the NAME of the record
+* `A` is the TYPE of the record
+* `[('1.1.1.1', False)]` is a list of RDATA entries (tuples or just strings), where:
+  * `'1.1.1.1'` is the RDATA
+  * `False` tells that this RDATA entry is NOT disabled
 
-  * `A` is the TYPE of the record
+### Backup and restoration of zones
 
-  * `[('1.1.1.1', False)]` is a list of RDATA entries (tuples or just strings),
-where:
-
-    * `'1.1.1.1'` is the RDATA
-
-    * `False` tells that this RDATA entry is NOT disabled
-
-**Backup and restoration of zones:**
 ```python
 # Backup every zone of every PowerDNS server
 for server in api.servers:
