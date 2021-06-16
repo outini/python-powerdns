@@ -54,10 +54,6 @@ class PDNSEndpoint(PDNSEndpointBase):
 
     :param PDNSApiClient api_client: Cachet API client instance
 
-    The :class:`~PDNSEndpoint` class defines the following attributes:
-
-    .. autoattribute:: servers
-
     .. seealso:: https://doc.powerdns.com/md/httpapi/api_spec/#api-spec
     """
     def __init__(self, api_client):
@@ -107,11 +103,6 @@ class PDNSServer(PDNSEndpointBase):
           "config_url": "/api/v1/servers/localhost/config{/config_setting}",
           "zones_url": "/api/v1/servers/localhost/zones{/zone}",
         }
-
-    The :class:`~PDNSServer` class defines the following attributes:
-
-    .. autoattribute:: config
-    .. autoattribute:: zones
 
     .. seealso:: https://doc.powerdns.com/md/httpapi/api_spec/#servers
     """
@@ -336,9 +327,6 @@ class PDNSServer(PDNSEndpointBase):
 
 class PDNSZone(PDNSEndpointBase):
     """Powerdns API Zone Endpoint
-
-    .. autoattribute:: details
-    .. autoattribute:: records
 
     :param PDNSApiClient api_client: Cachet API client instance
     :param PDNSServer server: PowerDNS server instance
