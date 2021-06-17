@@ -1,0 +1,610 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>python-powerdns – Interface &#8212; python-powerdns 2.0.0
+ documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="python-powerdns – Client" href="client.html" /><link rel="shortcut icon" type="image/png" href="_static/py.svg" />
+            <script type="text/javascript" src="_static/copybutton.js"></script>
+            <script type="text/javascript" src="_static/menu.js"></script> 
+  </head>
+<body>
+<div class="mobile-nav">
+    <input type="checkbox" id="menuToggler" class="toggler__input" aria-controls="navigation"
+           aria-pressed="false" aria-expanded="false" role="button" aria-label="Menu" />
+    <label for="menuToggler" class="toggler__label">
+        <span></span>
+    </label>
+    <nav class="nav-content" role="navigation">
+         <a href="https://www.python.org/" class="nav-logo">
+             <img src="_static/py.svg" alt="Logo"/>
+         </a>
+        <div class="version_switcher_placeholder"></div>
+        <form id="searchbox" role="search" class="search" action="search.html" method="get">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" class="search-icon">
+                <path fill-rule="nonzero"
+                        d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 001.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 00-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 005.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" fill="#444"></path>
+            </svg>
+            <input type="text" name="q" aria-label="Quick search"/>
+            <input type="submit" value="Go"/>
+        </form>
+    </nav>
+    <div class="menu-wrapper">
+        <nav class="menu" role="navigation" aria-label="main navigation">
+            <div class="language_switcher_placeholder"></div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="client.html"
+                        title="previous chapter">python-powerdns – Client</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/interface.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </nav>
+    </div>
+</div>
+  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="client.html" title="python-powerdns – Client"
+             accesskey="P">previous</a> |</li>
+          <li><img src="_static/py.svg" alt="python logo" style="vertical-align: middle; margin-top: -1px"/></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+              <a href="index.html">python-powerdns 2.0.0
+ documentation</a> &#187;
+              
+          </li>
+        <li class="nav-item nav-item-this"><a href="">python-powerdns – Interface</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="search.html" method="get">
+          <input placeholder="Quick search" aria-label="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+                     |
+                </li>
+            
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="python-powerdns-interface">
+<h1>python-powerdns – Interface<a class="headerlink" href="#python-powerdns-interface" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><dl class="py class">
+<dt class="sig sig-object py" id="powerdns.interface.PDNSEndpointBase">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">powerdns.interface.</span></span><span class="sig-name descname"><span class="pre">PDNSEndpointBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_client</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/powerdns/interface.html#PDNSEndpointBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#powerdns.interface.PDNSEndpointBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Powerdns API Endpoint Base</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>api_client</strong> (<a class="reference internal" href="client.html#powerdns.client.PDNSApiClient" title="powerdns.client.PDNSApiClient"><em>PDNSApiClient</em></a>) – Cachet API client instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="powerdns.interface.PDNSEndpoint">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">powerdns.interface.</span></span><span class="sig-name descname"><span class="pre">PDNSEndpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_client</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/powerdns/interface.html#PDNSEndpoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#powerdns.interface.PDNSEndpoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>PowerDNS API Endpoint</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>api_client</strong> (<a class="reference internal" href="client.html#powerdns.client.PDNSApiClient" title="powerdns.client.PDNSApiClient"><em>PDNSApiClient</em></a>) – Cachet API client instance</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://doc.powerdns.com/md/httpapi/api_spec/#api-spec">https://doc.powerdns.com/md/httpapi/api_spec/#api-spec</a></p>
+</div>
+<dl class="py property">
+<dt class="sig sig-object py" id="powerdns.interface.PDNSEndpoint.servers">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">servers</span></span><a class="headerlink" href="#powerdns.interface.PDNSEndpoint.servers" title="Permalink to this definition">¶</a></dt>
+<dd><p>List PowerDNS servers</p>
+<p>PowerDNS API is queried and results are cached. Received
+data is converted to <a class="reference internal" href="#powerdns.interface.PDNSServer" title="powerdns.interface.PDNSServer"><code class="xref py py-class docutils literal notranslate"><span class="pre">PDNSServer</span></code></a> instances.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://doc.powerdns.com/md/httpapi/api_spec/#servers">https://doc.powerdns.com/md/httpapi/api_spec/#servers</a></p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="powerdns.interface.PDNSServer">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">powerdns.interface.</span></span><span class="sig-name descname"><span class="pre">PDNSServer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_client</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/powerdns/interface.html#PDNSServer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#powerdns.interface.PDNSServer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Powerdns API Server Endpoint</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>api_client</strong> (<a class="reference internal" href="client.html#powerdns.client.PDNSApiClient" title="powerdns.client.PDNSApiClient"><em>PDNSApiClient</em></a>) – Cachet API client instance</p></li>
+<li><p><strong>api_data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – PowerDNS API server data</p></li>
+</ul>
+</dd>
+</dl>
+<p>api_data structure is received from API, here an example structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Server&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/servers/localhost&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;daemon_type&quot;</span><span class="p">:</span> <span class="s2">&quot;recursor&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;VERSION&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;config_url&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/servers/localhost/config{/config_setting}&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;zones_url&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/servers/localhost/zones{/zone}&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://doc.powerdns.com/md/httpapi/api_spec/#servers">https://doc.powerdns.com/md/httpapi/api_spec/#servers</a></p>
+</div>
+<dl class="py property">
+<dt class="sig sig-object py" id="powerdns.interface.PDNSServer.config">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">config</span></span><a class="headerlink" href="#powerdns.interface.PDNSServer.config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Server configuration from PowerDNS API</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://doc.powerdns.com/md/httpapi/api_spec/#url-apiv1serversserver95idconfig">https://doc.powerdns.com/md/httpapi/api_spec/#url-apiv1serversserver95idconfig</a></p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="powerdns.interface.PDNSServer.create_zone">
+<span class="sig-name descname"><span class="pre">create_zone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kind</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nameservers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">masters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">servers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rrsets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/powerdns/interface.html#PDNSServer.create_zone"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#powerdns.interface.PDNSServer.create_zone" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create or update a (new) zone</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Name of zone</p></li>
+<li><p><strong>kind</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Type of zone</p></li>
+<li><p><strong>nameservers</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – Name servers</p></li>
+<li><p><strong>masters</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – Zone masters</p></li>
+<li><p><strong>servers</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – List of forwarded-to servers (recursor only)</p></li>
+<li><p><strong>rrsets</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – Resource records sets</p></li>
+<li><p><strong>update</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – If the zone need to be updated or created</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Created zone as <a class="reference internal" href="#powerdns.interface.PDNSZone" title="powerdns.interface.PDNSZone"><code class="xref py py-class docutils literal notranslate"><span class="pre">PDNSZone</span></code></a> instance or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://doc.powerdns.com/md/httpapi/api_spec/#url-apiv1serversserver95idzones">https://doc.powerdns.com/md/httpapi/api_spec/#url-apiv1serversserver95idzones</a></p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="powerdns.interface.PDNSServer.delete_zone">
+<span class="sig-name descname"><span class="pre">delete_zone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/powerdns/interface.html#PDNSServer.delete_zone"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#powerdns.interface.PDNSServer.delete_zone" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a zone</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Zone name</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">PDNSApiClient</span></code> response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="powerdns.interface.PDNSServer.get_zone">
+<span class="sig-name descname"><span class="pre">get_zone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/powerdns/interface.html#PDNSServer.get_zone"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#powerdns.interface.PDNSServer.get_zone" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get zone by name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Zone name (canonical)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Zone as <a class="reference internal" href="#powerdns.interface.PDNSZone" title="powerdns.interface.PDNSZone"><code class="xref py py-class docutils literal notranslate"><span class="pre">PDNSZone</span></code></a> instance or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://doc.powerdns.com/md/httpapi/api_spec/#zone95collection">https://doc.powerdns.com/md/httpapi/api_spec/#zone95collection</a></p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="powerdns.interface.PDNSServer.restore_zone">
+<span class="sig-name descname"><span class="pre">restore_zone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/powerdns/interface.html#PDNSServer.restore_zone"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#powerdns.interface.PDNSServer.restore_zone" title="Permalink to this definition">¶</a></dt>
+<dd><p>Restore a zone from a json file produced by <a class="reference internal" href="#powerdns.interface.PDNSZone.backup" title="powerdns.interface.PDNSZone.backup"><code class="xref py py-meth docutils literal notranslate"><span class="pre">PDNSZone.backup()</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>json_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Backup file</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Restored zone as <a class="reference internal" href="#powerdns.interface.PDNSZone" title="powerdns.interface.PDNSZone"><code class="xref py py-class docutils literal notranslate"><span class="pre">PDNSZone</span></code></a> instance or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="powerdns.interface.PDNSServer.search">
+<span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">search_term</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_result</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/powerdns/interface.html#PDNSServer.search"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#powerdns.interface.PDNSServer.search" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search term using API search endpoint</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>search_term</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – </p></li>
+<li><p><strong>max_result</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Query results as <code class="xref py py-func docutils literal notranslate"><span class="pre">list()</span></code></p>
+</dd>
+</dl>
+<p>API response is a list of one or more of the following objects:</p>
+<p>For a zone:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;zonename&gt;&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;object_type&quot;</span><span class="p">:</span> <span class="s2">&quot;zone&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;zone_id&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;zoneid&gt;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For a record:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;content&gt;&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;disabled&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">bool</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;name&gt;&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;object_type&quot;</span><span class="p">:</span> <span class="s2">&quot;record&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;ttl&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">ttl</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;type&gt;&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;zone&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;zonename&gt;,</span>
+  <span class="s2">&quot;zone_id&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;zoneid&gt;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For a comment:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;object_type&quot;</span><span class="p">:</span> <span class="s2">&quot;comment&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;name&gt;&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;content&gt;&quot;</span>
+  <span class="s2">&quot;zone&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;zonename&gt;,</span>
+  <span class="s2">&quot;zone_id&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;zoneid&gt;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="powerdns.interface.PDNSServer.suggest_zone">
+<span class="sig-name descname"><span class="pre">suggest_zone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/powerdns/interface.html#PDNSServer.suggest_zone"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#powerdns.interface.PDNSServer.suggest_zone" title="Permalink to this definition">¶</a></dt>
+<dd><p>Suggest best matching zone from existing zone</p>
+<p>Proposal is done on longer zone names matching the record suffix.
+Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">record</span><span class="p">:</span> <span class="n">a</span><span class="o">.</span><span class="n">test</span><span class="o">.</span><span class="n">sub</span><span class="o">.</span><span class="n">domain</span><span class="o">.</span><span class="n">tld</span><span class="o">.</span>
+<span class="n">zone</span><span class="p">:</span>              <span class="n">domain</span><span class="o">.</span><span class="n">tld</span><span class="o">.</span>
+<span class="n">zone</span><span class="p">:</span>          <span class="n">sub</span><span class="o">.</span><span class="n">domain</span><span class="o">.</span><span class="n">tld</span><span class="o">.</span>   <span class="o">&lt;==</span> <span class="n">best</span> <span class="n">match</span>
+<span class="n">zone</span><span class="p">:</span>      <span class="n">another</span><span class="o">.</span><span class="n">domain</span><span class="o">.</span><span class="n">tld</span><span class="o">.</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>r_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Record canonical name</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Zone as <a class="reference internal" href="#powerdns.interface.PDNSZone" title="powerdns.interface.PDNSZone"><code class="xref py py-class docutils literal notranslate"><span class="pre">PDNSZone</span></code></a> object or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="powerdns.interface.PDNSServer.zones">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">zones</span></span><a class="headerlink" href="#powerdns.interface.PDNSServer.zones" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of DNS zones on a PowerDNS server</p>
+<p>PowerDNS API is queried and results are cached in object. This cache is
+resetted in case of zone creation, deletion, or restoration. Received
+data is converted to <a class="reference internal" href="#powerdns.interface.PDNSZone" title="powerdns.interface.PDNSZone"><code class="xref py py-class docutils literal notranslate"><span class="pre">PDNSZone</span></code></a> instances.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://doc.powerdns.com/md/httpapi/api_spec/#zone95collection">https://doc.powerdns.com/md/httpapi/api_spec/#zone95collection</a></p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="powerdns.interface.PDNSZone">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">powerdns.interface.</span></span><span class="sig-name descname"><span class="pre">PDNSZone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_client</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">server</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/powerdns/interface.html#PDNSZone"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#powerdns.interface.PDNSZone" title="Permalink to this definition">¶</a></dt>
+<dd><p>Powerdns API Zone Endpoint</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>api_client</strong> (<a class="reference internal" href="client.html#powerdns.client.PDNSApiClient" title="powerdns.client.PDNSApiClient"><em>PDNSApiClient</em></a>) – Cachet API client instance</p></li>
+<li><p><strong>server</strong> (<a class="reference internal" href="#powerdns.interface.PDNSServer" title="powerdns.interface.PDNSServer"><em>PDNSServer</em></a>) – PowerDNS server instance</p></li>
+<li><p><strong>api_data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – PowerDNS API zone data</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="powerdns.interface.PDNSZone.backup">
+<span class="sig-name descname"><span class="pre">backup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pretty_json</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/powerdns/interface.html#PDNSZone.backup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#powerdns.interface.PDNSZone.backup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Backup zone data to json file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>directory</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Directory to store json file</p></li>
+<li><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Json file name</p></li>
+<li><p><strong>pretty_json</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Enable pretty json display</p></li>
+</ul>
+</dd>
+</dl>
+<p>If filename is not provided, destination file is generated with zone
+name (stripping the last dot) and extension <cite>.json</cite>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="powerdns.interface.PDNSZone.create_records">
+<span class="sig-name descname"><span class="pre">create_records</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rrsets</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/powerdns/interface.html#PDNSZone.create_records"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#powerdns.interface.PDNSZone.create_records" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create resource record sets</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>rrsets</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – Resource record sets</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Query response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="powerdns.interface.PDNSZone.delete_records">
+<span class="sig-name descname"><span class="pre">delete_records</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rrsets</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/powerdns/interface.html#PDNSZone.delete_records"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#powerdns.interface.PDNSZone.delete_records" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete resource record sets</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>rrsets</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – Resource record sets</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Query response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="powerdns.interface.PDNSZone.details">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">details</span></span><a class="headerlink" href="#powerdns.interface.PDNSZone.details" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get zone’s detailed data</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="powerdns.interface.PDNSZone.get_record">
+<span class="sig-name descname"><span class="pre">get_record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/powerdns/interface.html#PDNSZone.get_record"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#powerdns.interface.PDNSZone.get_record" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get record data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Record name</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Records data as <code class="xref py py-func docutils literal notranslate"><span class="pre">list()</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="powerdns.interface.PDNSZone.notify">
+<span class="sig-name descname"><span class="pre">notify</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/powerdns/interface.html#PDNSZone.notify"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#powerdns.interface.PDNSZone.notify" title="Permalink to this definition">¶</a></dt>
+<dd><p>Trigger notification for zone updates</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="powerdns.interface.PDNSZone.records">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">records</span></span><a class="headerlink" href="#powerdns.interface.PDNSZone.records" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get zone’s records</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="powerdns.interface.RRSet">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">powerdns.interface.</span></span><span class="sig-name descname"><span class="pre">RRSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">records</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ttl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3600</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">changetype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'REPLACE'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comments</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/powerdns/interface.html#RRSet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#powerdns.interface.RRSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resource record data for PowerDNS API</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>changetype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – API keyword DELETE or REPLACE</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Record name</p></li>
+<li><p><strong>rtype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Record type</p></li>
+<li><p><strong>records</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – List of Str or Tuple(content_str, disabled_bool)
+or Dict with the keys “content” and optionally
+“disabled”.</p></li>
+<li><p><strong>ttl</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Record time to live</p></li>
+<li><p><strong>comments</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – list of Comments instances for this RRSet</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://doc.powerdns.com/md/httpapi/api_spec/#url-apiv1serversserver95idzoneszone95id">https://doc.powerdns.com/md/httpapi/api_spec/#url-apiv1serversserver95idzoneszone95id</a></p>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="powerdns.interface.RRSet.ensure_canonical">
+<span class="sig-name descname"><span class="pre">ensure_canonical</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">zone</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/powerdns/interface.html#RRSet.ensure_canonical"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#powerdns.interface.RRSet.ensure_canonical" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensure every record names are canonical</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>zone</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Zone name to build canonical names</p>
+</dd>
+</dl>
+<p>In case of CNAME records, records content is also checked.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This method update <a class="reference internal" href="#powerdns.interface.RRSet" title="powerdns.interface.RRSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">RRSet</span></code></a> data to ensure the use of
+canonical names. It is actually not possible to revert values.</p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="powerdns.interface.Comment">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">powerdns.interface.</span></span><span class="sig-name descname"><span class="pre">Comment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">account</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">modified_at</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/powerdns/interface.html#Comment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#powerdns.interface.Comment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Comment data for PowerDNS API RRSets</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>content</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – the content of the comment</p></li>
+<li><p><strong>account</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – the account</p></li>
+<li><p><strong>modified_at</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Unix timestamp at which the comment was last
+modified. Will be set to the current timestamp if
+None.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://doc.powerdns.com/md/httpapi/api_spec/#zone95collection">https://doc.powerdns.com/md/httpapi/api_spec/#zone95collection</a></p>
+</div>
+</dd></dl>
+
+</div></blockquote>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="client.html"
+                        title="previous chapter">python-powerdns – Client</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/interface.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="client.html" title="python-powerdns – Client"
+             >previous</a> |</li>
+          <li><img src="_static/py.svg" alt="python logo" style="vertical-align: middle; margin-top: -1px"/></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+              <a href="index.html">python-powerdns 2.0.0
+ documentation</a> &#187;
+              
+          </li>
+        <li class="nav-item nav-item-this"><a href="">python-powerdns – Interface</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="search.html" method="get">
+          <input placeholder="Quick search" aria-label="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+                     |
+                </li>
+            
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="copyright.html">Copyright</a> 2018, Denis &#39;jawa&#39; Pompilio.
+    <br />
+    This page is licensed under the Python Software Foundation License Version 2.
+    <br />
+    Examples, recipes, and other code in the documentation are additionally licensed under the Zero Clause BSD License.
+    <br />
+    See <a href="">History and License</a> for more information.
+    <br /><br />
+
+    The Python Software Foundation is a non-profit corporation.
+<a href="https://www.python.org/psf/donations/">Please donate.</a>
+<br />
+    <br />
+
+    Last updated on None.
+    
+    <br />
+
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.2.
+    </div>
+
+  </body>
+</html>

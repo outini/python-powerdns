@@ -1,0 +1,771 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>powerdns.interface &#8212; python-powerdns 2.0.0
+ documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+    
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /><link rel="shortcut icon" type="image/png" href="../../_static/py.svg" />
+            <script type="text/javascript" src="../../_static/copybutton.js"></script>
+            <script type="text/javascript" src="../../_static/menu.js"></script> 
+  </head>
+<body>
+<div class="mobile-nav">
+    <input type="checkbox" id="menuToggler" class="toggler__input" aria-controls="navigation"
+           aria-pressed="false" aria-expanded="false" role="button" aria-label="Menu" />
+    <label for="menuToggler" class="toggler__label">
+        <span></span>
+    </label>
+    <nav class="nav-content" role="navigation">
+         <a href="https://www.python.org/" class="nav-logo">
+             <img src="../../_static/py.svg" alt="Logo"/>
+         </a>
+        <div class="version_switcher_placeholder"></div>
+        <form id="searchbox" role="search" class="search" action="../../search.html" method="get">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" class="search-icon">
+                <path fill-rule="nonzero"
+                        d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 001.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 00-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 005.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" fill="#444"></path>
+            </svg>
+            <input type="text" name="q" aria-label="Quick search"/>
+            <input type="submit" value="Go"/>
+        </form>
+    </nav>
+    <div class="menu-wrapper">
+        <nav class="menu" role="navigation" aria-label="main navigation">
+            <div class="language_switcher_placeholder"></div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </nav>
+    </div>
+</div>
+  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+          <li><img src="../../_static/py.svg" alt="python logo" style="vertical-align: middle; margin-top: -1px"/></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+              <a href="../../index.html">python-powerdns 2.0.0
+ documentation</a> &#187;
+              
+          </li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../powerdns.html" accesskey="U">powerdns</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">powerdns.interface</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="../../search.html" method="get">
+          <input placeholder="Quick search" aria-label="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+                     |
+                </li>
+            
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for powerdns.interface</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">#</span>
+<span class="c1">#  PowerDNS web api python client and interface (python-powerdns)</span>
+<span class="c1">#</span>
+<span class="c1">#  Copyright (C) 2018 Denis Pompilio (jawa) &lt;denis.pompilio@gmail.com&gt;</span>
+<span class="c1">#</span>
+<span class="c1">#  This file is part of python-powerdns</span>
+<span class="c1">#</span>
+<span class="c1">#  This program is free software; you can redistribute it and/or</span>
+<span class="c1">#  modify it under the terms of the MIT License.</span>
+<span class="c1">#</span>
+<span class="c1">#  This program is distributed in the hope that it will be useful,</span>
+<span class="c1">#  but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1">#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1">#  MIT License for more details.</span>
+<span class="c1">#</span>
+<span class="c1">#  You should have received a copy of the MIT License along with this</span>
+<span class="c1">#  program; if not, see &lt;https://opensource.org/licenses/MIT&gt;.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">powerdns.interface - PowerDNS API interface</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="kn">from</span> <span class="nn">.exceptions</span> <span class="kn">import</span> <span class="n">PDNSCanonicalError</span>
+
+
+<span class="n">LOG</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<span class="c1"># pylint: disable=useless-object-inheritance</span>
+<span class="c1"># pylint: disable=too-few-public-methods</span>
+<div class="viewcode-block" id="PDNSEndpointBase"><a class="viewcode-back" href="../../interface.html#powerdns.interface.PDNSEndpointBase">[docs]</a><span class="k">class</span> <span class="nc">PDNSEndpointBase</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Powerdns API Endpoint Base</span>
+
+<span class="sd">    :param PDNSApiClient api_client: Cachet API client instance</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">api_client</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialization method&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">api_client</span> <span class="o">=</span> <span class="n">api_client</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_get</span> <span class="o">=</span> <span class="n">api_client</span><span class="o">.</span><span class="n">get</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_post</span> <span class="o">=</span> <span class="n">api_client</span><span class="o">.</span><span class="n">post</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_patch</span> <span class="o">=</span> <span class="n">api_client</span><span class="o">.</span><span class="n">patch</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_put</span> <span class="o">=</span> <span class="n">api_client</span><span class="o">.</span><span class="n">put</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_delete</span> <span class="o">=</span> <span class="n">api_client</span><span class="o">.</span><span class="n">delete</span></div>
+
+
+<div class="viewcode-block" id="PDNSEndpoint"><a class="viewcode-back" href="../../interface.html#powerdns.interface.PDNSEndpoint">[docs]</a><span class="k">class</span> <span class="nc">PDNSEndpoint</span><span class="p">(</span><span class="n">PDNSEndpointBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;PowerDNS API Endpoint</span>
+
+<span class="sd">    :param PDNSApiClient api_client: Cachet API client instance</span>
+
+<span class="sd">    .. seealso:: https://doc.powerdns.com/md/httpapi/api_spec/#api-spec</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">api_client</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialization method&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_servers</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">PDNSEndpoint</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">api_client</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;PDNSEndpoint(</span><span class="si">%s</span><span class="s1">)&#39;</span> <span class="o">%</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_client</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_client</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">servers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;List PowerDNS servers</span>
+
+<span class="sd">        PowerDNS API is queried and results are cached. Received</span>
+<span class="sd">        data is converted to :class:`PDNSServer` instances.</span>
+
+<span class="sd">        .. seealso:: https://doc.powerdns.com/md/httpapi/api_spec/#servers</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;listing available PowerDNS servers&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_servers</span><span class="p">:</span>
+            <span class="n">LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;getting available servers from API&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_servers</span> <span class="o">=</span> <span class="p">[</span><span class="n">PDNSServer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_client</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+                             <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span><span class="s1">&#39;/servers&#39;</span><span class="p">)]</span>
+        <span class="n">LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2"> server(s) listed&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_servers</span><span class="p">))</span>
+        <span class="n">LOG</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;listed servers: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_servers</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_servers</span></div>
+
+
+<div class="viewcode-block" id="PDNSServer"><a class="viewcode-back" href="../../interface.html#powerdns.interface.PDNSServer">[docs]</a><span class="k">class</span> <span class="nc">PDNSServer</span><span class="p">(</span><span class="n">PDNSEndpointBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Powerdns API Server Endpoint</span>
+
+<span class="sd">    :param PDNSApiClient api_client: Cachet API client instance</span>
+<span class="sd">    :param str api_data: PowerDNS API server data</span>
+
+<span class="sd">    api_data structure is received from API, here an example structure::</span>
+
+<span class="sd">        {</span>
+<span class="sd">          &quot;type&quot;: &quot;Server&quot;,</span>
+<span class="sd">          &quot;id&quot;: &quot;localhost&quot;,</span>
+<span class="sd">          &quot;url&quot;: &quot;/api/v1/servers/localhost&quot;,</span>
+<span class="sd">          &quot;daemon_type&quot;: &quot;recursor&quot;,</span>
+<span class="sd">          &quot;version&quot;: &quot;VERSION&quot;,</span>
+<span class="sd">          &quot;config_url&quot;: &quot;/api/v1/servers/localhost/config{/config_setting}&quot;,</span>
+<span class="sd">          &quot;zones_url&quot;: &quot;/api/v1/servers/localhost/zones{/zone}&quot;,</span>
+<span class="sd">        }</span>
+
+<span class="sd">    .. seealso:: https://doc.powerdns.com/md/httpapi/api_spec/#servers</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">api_client</span><span class="p">,</span> <span class="n">api_data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialization method&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_api_client</span> <span class="o">=</span> <span class="n">api_client</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_api_data</span> <span class="o">=</span> <span class="n">api_data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sid</span> <span class="o">=</span> <span class="n">api_data</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="n">api_data</span><span class="p">[</span><span class="s1">&#39;version&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">daemon_type</span> <span class="o">=</span> <span class="n">api_data</span><span class="p">[</span><span class="s1">&#39;daemon_type&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;/servers/</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">sid</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_zones</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">PDNSServer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">api_client</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;PDNSServer(</span><span class="si">%s</span><span class="s1">, </span><span class="si">%s</span><span class="s1">)&#39;</span> <span class="o">%</span> <span class="p">(</span>
+            <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_api_client</span><span class="p">),</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_api_data</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sid</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">config</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Server configuration from PowerDNS API</span>
+
+<span class="sd">        .. seealso:: https://doc.powerdns.com/md/httpapi/api_spec/#url-apiv1serversserver95idconfig</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;getting server configuration&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/config&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">zones</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;List of DNS zones on a PowerDNS server</span>
+
+<span class="sd">        PowerDNS API is queried and results are cached in object. This cache is</span>
+<span class="sd">        resetted in case of zone creation, deletion, or restoration. Received</span>
+<span class="sd">        data is converted to :class:`PDNSZone` instances.</span>
+
+<span class="sd">        .. seealso:: https://doc.powerdns.com/md/httpapi/api_spec/#zone95collection</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;listing available zones&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_zones</span><span class="p">:</span>
+            <span class="n">LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;getting available zones from API&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_zones</span> <span class="o">=</span> <span class="p">[</span><span class="n">PDNSZone</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_client</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+                           <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/zones&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">)]</span>
+        <span class="n">LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2"> zone(s) listed&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_zones</span><span class="p">))</span>
+        <span class="n">LOG</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;listed zones: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_zones</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_zones</span>
+
+<div class="viewcode-block" id="PDNSServer.search"><a class="viewcode-back" href="../../interface.html#powerdns.interface.PDNSServer.search">[docs]</a>    <span class="k">def</span> <span class="nf">search</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search_term</span><span class="p">,</span> <span class="n">max_result</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Search term using API search endpoint</span>
+
+<span class="sd">        :param str search_term:</span>
+<span class="sd">        :param int max_result:</span>
+<span class="sd">        :return: Query results as :func:`list`</span>
+
+<span class="sd">        API response is a list of one or more of the following objects:</span>
+
+<span class="sd">        For a zone::</span>
+
+<span class="sd">            {</span>
+<span class="sd">              &quot;name&quot;: &quot;&lt;zonename&gt;&quot;,</span>
+<span class="sd">              &quot;object_type&quot;: &quot;zone&quot;,</span>
+<span class="sd">              &quot;zone_id&quot;: &quot;&lt;zoneid&gt;&quot;</span>
+<span class="sd">            }</span>
+
+<span class="sd">        For a record::</span>
+
+<span class="sd">            {</span>
+<span class="sd">              &quot;content&quot;: &quot;&lt;content&gt;&quot;,</span>
+<span class="sd">              &quot;disabled&quot;: &lt;bool&gt;,</span>
+<span class="sd">              &quot;name&quot;: &quot;&lt;name&gt;&quot;,</span>
+<span class="sd">              &quot;object_type&quot;: &quot;record&quot;,</span>
+<span class="sd">              &quot;ttl&quot;: &lt;ttl&gt;,</span>
+<span class="sd">              &quot;type&quot;: &quot;&lt;type&gt;&quot;,</span>
+<span class="sd">              &quot;zone&quot;: &quot;&lt;zonename&gt;,</span>
+<span class="sd">              &quot;zone_id&quot;: &quot;&lt;zoneid&gt;&quot;</span>
+<span class="sd">            }</span>
+
+<span class="sd">        For a comment::</span>
+
+<span class="sd">            {</span>
+<span class="sd">              &quot;object_type&quot;: &quot;comment&quot;,</span>
+<span class="sd">              &quot;name&quot;: &quot;&lt;name&gt;&quot;,</span>
+<span class="sd">              &quot;content&quot;: &quot;&lt;content&gt;&quot;</span>
+<span class="sd">              &quot;zone&quot;: &quot;&lt;zonename&gt;,</span>
+<span class="sd">              &quot;zone_id&quot;: &quot;&lt;zoneid&gt;&quot;</span>
+<span class="sd">            }</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;api search terms: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">search_term</span><span class="p">)</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/search-data?q=</span><span class="si">%s</span><span class="s1">&amp;max=</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">,</span>
+            <span class="n">search_term</span><span class="p">,</span>
+            <span class="n">max_result</span>
+        <span class="p">))</span>
+        <span class="n">LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2"> search result(s)&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">))</span>
+        <span class="n">LOG</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;search results: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">results</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">results</span></div>
+
+    <span class="c1"># pylint: disable=inconsistent-return-statements</span>
+<div class="viewcode-block" id="PDNSServer.get_zone"><a class="viewcode-back" href="../../interface.html#powerdns.interface.PDNSServer.get_zone">[docs]</a>    <span class="k">def</span> <span class="nf">get_zone</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get zone by name</span>
+
+<span class="sd">        :param str name: Zone name (canonical)</span>
+<span class="sd">        :return: Zone as :class:`PDNSZone` instance or :obj:`None`</span>
+
+<span class="sd">        .. seealso:: https://doc.powerdns.com/md/httpapi/api_spec/#zone95collection</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;getting zone: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">zone</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">zones</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">zone</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">name</span><span class="p">:</span>
+                <span class="n">LOG</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;found zone: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">zone</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">zone</span>
+        <span class="n">LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;zone not found: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PDNSServer.suggest_zone"><a class="viewcode-back" href="../../interface.html#powerdns.interface.PDNSServer.suggest_zone">[docs]</a>    <span class="k">def</span> <span class="nf">suggest_zone</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r_name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Suggest best matching zone from existing zone</span>
+
+<span class="sd">        Proposal is done on longer zone names matching the record suffix.</span>
+<span class="sd">        Example::</span>
+
+<span class="sd">            record: a.test.sub.domain.tld.</span>
+<span class="sd">            zone:              domain.tld.</span>
+<span class="sd">            zone:          sub.domain.tld.   &lt;== best match</span>
+<span class="sd">            zone:      another.domain.tld.</span>
+
+<span class="sd">        :param str r_name: Record canonical name</span>
+<span class="sd">        :return: Zone as :class:`PDNSZone` object or :obj:`None`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;suggesting zone for: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">r_name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">r_name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">PDNSCanonicalError</span><span class="p">(</span><span class="n">r_name</span><span class="p">)</span>
+        <span class="n">best_match</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">zone</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">zones</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">r_name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">zone</span><span class="o">.</span><span class="n">name</span><span class="p">):</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">best_match</span><span class="p">:</span>
+                    <span class="n">best_match</span> <span class="o">=</span> <span class="n">zone</span>
+                <span class="k">if</span> <span class="n">best_match</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">zone</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">best_match</span><span class="o">.</span><span class="n">name</span><span class="p">):</span>
+                    <span class="n">best_match</span> <span class="o">=</span> <span class="n">zone</span>
+        <span class="n">LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;zone best match: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">best_match</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">best_match</span></div>
+
+    <span class="c1"># pylint: disable=inconsistent-return-statements</span>
+    <span class="c1"># pylint: disable=too-many-arguments</span>
+    <span class="c1"># TODO: Full implementation of zones endpoint</span>
+<div class="viewcode-block" id="PDNSServer.create_zone"><a class="viewcode-back" href="../../interface.html#powerdns.interface.PDNSServer.create_zone">[docs]</a>    <span class="k">def</span> <span class="nf">create_zone</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="n">nameservers</span><span class="p">,</span> <span class="n">masters</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">servers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                    <span class="n">rrsets</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">update</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Create or update a (new) zone</span>
+
+<span class="sd">        :param str name: Name of zone</span>
+<span class="sd">        :param str kind: Type of zone</span>
+<span class="sd">        :param list nameservers: Name servers</span>
+<span class="sd">        :param list masters: Zone masters</span>
+<span class="sd">        :param list servers: List of forwarded-to servers (recursor only)</span>
+<span class="sd">        :param list rrsets: Resource records sets</span>
+<span class="sd">        :param bool update: If the zone need to be updated or created</span>
+<span class="sd">        :return: Created zone as :class:`PDNSZone` instance or :obj:`None`</span>
+
+<span class="sd">        .. seealso:: https://doc.powerdns.com/md/httpapi/api_spec/#url-apiv1serversserver95idzones</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">zone_data</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+            <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="n">kind</span><span class="p">,</span>
+            <span class="s2">&quot;nameservers&quot;</span><span class="p">:</span> <span class="n">nameservers</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="n">masters</span><span class="p">:</span>
+            <span class="n">zone_data</span><span class="p">[</span><span class="s1">&#39;masters&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">masters</span>
+        <span class="k">if</span> <span class="n">servers</span><span class="p">:</span>
+            <span class="n">zone_data</span><span class="p">[</span><span class="s1">&#39;servers&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">servers</span>
+        <span class="k">if</span> <span class="n">rrsets</span><span class="p">:</span>
+            <span class="n">zone_data</span><span class="p">[</span><span class="s1">&#39;rrsets&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rrsets</span>
+
+        <span class="k">if</span> <span class="n">update</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;update of zone: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="n">get_zone</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_zone</span><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">details</span>
+            <span class="n">zone_id</span> <span class="o">=</span> <span class="n">get_zone</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
+            <span class="n">zone_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_patch</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/zones/</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">,</span>
+                                                         <span class="n">zone_id</span><span class="p">),</span>
+                                    <span class="n">data</span><span class="o">=</span><span class="n">zone_data</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;creation of zone: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="n">zone_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_post</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/zones&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">zone_data</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">zone_data</span><span class="p">:</span>
+            <span class="c1"># reset server object cache</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_zones</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;zone </span><span class="si">%s</span><span class="s2"> successfully processed&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">PDNSZone</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_client</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">zone_data</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PDNSServer.delete_zone"><a class="viewcode-back" href="../../interface.html#powerdns.interface.PDNSServer.delete_zone">[docs]</a>    <span class="k">def</span> <span class="nf">delete_zone</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Delete a zone</span>
+
+<span class="sd">        :param str name: Zone name</span>
+<span class="sd">        :return: :class:`PDNSApiClient` response</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># reset server object cache</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_zones</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;deletion of zone: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_delete</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/zones/</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="n">name</span><span class="p">))</span></div>
+
+    <span class="c1"># pylint: disable=inconsistent-return-statements</span>
+<div class="viewcode-block" id="PDNSServer.restore_zone"><a class="viewcode-back" href="../../interface.html#powerdns.interface.PDNSServer.restore_zone">[docs]</a>    <span class="k">def</span> <span class="nf">restore_zone</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">json_file</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Restore a zone from a json file produced by :meth:`PDNSZone.backup`</span>
+
+<span class="sd">        :param str json_file: Backup file</span>
+<span class="sd">        :return: Restored zone as :class:`PDNSZone` instance or :obj:`None`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">json_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">backup_fp</span><span class="p">:</span>
+            <span class="n">zone_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">backup_fp</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_zones</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">zone_name</span> <span class="o">=</span> <span class="n">zone_data</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+        <span class="n">zone_data</span><span class="p">[</span><span class="s1">&#39;nameservers&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;restoration of zone: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">zone_name</span><span class="p">)</span>
+        <span class="n">zone_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_post</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/zones&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">zone_data</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">zone_data</span><span class="p">:</span>
+            <span class="n">LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;zone successfully restored: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">zone_data</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">])</span>
+            <span class="k">return</span> <span class="n">PDNSZone</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_client</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">zone_data</span><span class="p">)</span>
+        <span class="n">LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> zone restoration failed&quot;</span><span class="p">,</span> <span class="n">zone_name</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="PDNSZone"><a class="viewcode-back" href="../../interface.html#powerdns.interface.PDNSZone">[docs]</a><span class="k">class</span> <span class="nc">PDNSZone</span><span class="p">(</span><span class="n">PDNSEndpointBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Powerdns API Zone Endpoint</span>
+
+<span class="sd">    :param PDNSApiClient api_client: Cachet API client instance</span>
+<span class="sd">    :param PDNSServer server: PowerDNS server instance</span>
+<span class="sd">    :param dict api_data: PowerDNS API zone data</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">api_client</span><span class="p">,</span> <span class="n">server</span><span class="p">,</span> <span class="n">api_data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialization method&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_api_client</span> <span class="o">=</span> <span class="n">api_client</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_api_data</span> <span class="o">=</span> <span class="n">api_data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server</span> <span class="o">=</span> <span class="n">server</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">api_data</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/zones/</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_details</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">PDNSZone</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">api_client</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;PDNSZone(</span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span>
+            <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_api_client</span><span class="p">),</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="p">),</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_api_data</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">details</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get zone&#39;s detailed data&quot;&quot;&quot;</span>
+        <span class="n">LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;getting </span><span class="si">%s</span><span class="s2"> zone details&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_details</span><span class="p">:</span>
+            <span class="n">LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;getting </span><span class="si">%s</span><span class="s2"> zone details from api&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_details</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_details</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">records</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get zone&#39;s records&quot;&quot;&quot;</span>
+        <span class="n">LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;getting </span><span class="si">%s</span><span class="s2"> zone records&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">details</span><span class="p">[</span><span class="s1">&#39;rrsets&#39;</span><span class="p">]</span>
+
+<div class="viewcode-block" id="PDNSZone.get_record"><a class="viewcode-back" href="../../interface.html#powerdns.interface.PDNSZone.get_record">[docs]</a>    <span class="k">def</span> <span class="nf">get_record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get record data</span>
+
+<span class="sd">        :param str name: Record name</span>
+<span class="sd">        :return: Records data as :func:`list`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">records</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;getting zone record: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">details</span><span class="p">[</span><span class="s1">&#39;rrsets&#39;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="n">record</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]:</span>
+                <span class="n">LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;record found: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+                <span class="n">records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">records</span><span class="p">:</span>
+            <span class="n">LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;record not found: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">records</span></div>
+
+<div class="viewcode-block" id="PDNSZone.create_records"><a class="viewcode-back" href="../../interface.html#powerdns.interface.PDNSZone.create_records">[docs]</a>    <span class="k">def</span> <span class="nf">create_records</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rrsets</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Create resource record sets</span>
+
+<span class="sd">        :param list rrsets: Resource record sets</span>
+<span class="sd">        :return: Query response</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;creating </span><span class="si">%d</span><span class="s2"> record(s) to </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">rrsets</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">LOG</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;records: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">rrsets</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">rrset</span> <span class="ow">in</span> <span class="n">rrsets</span><span class="p">:</span>
+            <span class="n">rrset</span><span class="o">.</span><span class="n">ensure_canonical</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="n">rrset</span><span class="p">[</span><span class="s1">&#39;changetype&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;REPLACE&#39;</span>
+
+        <span class="c1"># reset zone object cache</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_details</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_patch</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;rrsets&#39;</span><span class="p">:</span> <span class="n">rrsets</span><span class="p">})</span></div>
+
+<div class="viewcode-block" id="PDNSZone.delete_records"><a class="viewcode-back" href="../../interface.html#powerdns.interface.PDNSZone.delete_records">[docs]</a>    <span class="k">def</span> <span class="nf">delete_records</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rrsets</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Delete resource record sets</span>
+
+<span class="sd">        :param list rrsets: Resource record sets</span>
+<span class="sd">        :return: Query response</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;deletion of </span><span class="si">%d</span><span class="s2"> records from </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">rrsets</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">LOG</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;records: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">rrsets</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">rrset</span> <span class="ow">in</span> <span class="n">rrsets</span><span class="p">:</span>
+            <span class="n">rrset</span><span class="o">.</span><span class="n">ensure_canonical</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="n">rrset</span><span class="p">[</span><span class="s1">&#39;changetype&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;DELETE&#39;</span>
+
+        <span class="c1"># reset zone object cache</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_details</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_patch</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;rrsets&#39;</span><span class="p">:</span> <span class="n">rrsets</span><span class="p">})</span></div>
+
+<div class="viewcode-block" id="PDNSZone.backup"><a class="viewcode-back" href="../../interface.html#powerdns.interface.PDNSZone.backup">[docs]</a>    <span class="k">def</span> <span class="nf">backup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directory</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pretty_json</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Backup zone data to json file</span>
+
+<span class="sd">        :param str directory: Directory to store json file</span>
+<span class="sd">        :param str filename: Json file name</span>
+<span class="sd">        :param bool pretty_json: Enable pretty json display</span>
+
+<span class="sd">        If filename is not provided, destination file is generated with zone</span>
+<span class="sd">        name (stripping the last dot) and extension `.json`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;backup of zone: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">filename</span><span class="p">:</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.json&quot;</span>
+        <span class="n">json_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+        <span class="n">LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;backup file is </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">json_file</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">json_file</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">backup_fp</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">pretty_json</span><span class="p">:</span>
+                <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">details</span><span class="p">,</span>
+                          <span class="n">backup_fp</span><span class="p">,</span>
+                          <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                          <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                          <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">details</span><span class="p">,</span> <span class="n">backup_fp</span><span class="p">)</span>
+        <span class="n">LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;zone </span><span class="si">%s</span><span class="s2"> successfully saved&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PDNSZone.notify"><a class="viewcode-back" href="../../interface.html#powerdns.interface.PDNSZone.notify">[docs]</a>    <span class="k">def</span> <span class="nf">notify</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Trigger notification for zone updates&quot;&quot;&quot;</span>
+        <span class="n">LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;notify of zone: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_put</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">+</span> <span class="s1">&#39;/notify&#39;</span><span class="p">)</span></div></div>
+
+
+<span class="c1"># pylint: disable=line-too-long</span>
+<span class="c1"># pylint: disable=too-many-arguments</span>
+<div class="viewcode-block" id="RRSet"><a class="viewcode-back" href="../../interface.html#powerdns.interface.RRSet">[docs]</a><span class="k">class</span> <span class="nc">RRSet</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Resource record data for PowerDNS API</span>
+
+<span class="sd">    :param str changetype: API keyword DELETE or REPLACE</span>
+<span class="sd">    :param str name: Record name</span>
+<span class="sd">    :param str rtype: Record type</span>
+<span class="sd">    :param list records: List of Str or Tuple(content_str, disabled_bool)</span>
+<span class="sd">                         or Dict with the keys &quot;content&quot; and optionally</span>
+<span class="sd">                         &quot;disabled&quot;.</span>
+<span class="sd">    :param int ttl: Record time to live</span>
+<span class="sd">    :param list comments: list of Comments instances for this RRSet</span>
+
+<span class="sd">    .. seealso:: https://doc.powerdns.com/md/httpapi/api_spec/#url-apiv1serversserver95idzoneszone95id</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">rtype</span><span class="p">,</span> <span class="n">records</span><span class="p">,</span> <span class="n">ttl</span><span class="o">=</span><span class="mi">3600</span><span class="p">,</span> <span class="n">changetype</span><span class="o">=</span><span class="s1">&#39;REPLACE&#39;</span><span class="p">,</span>
+                 <span class="n">comments</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialization&quot;&quot;&quot;</span>
+        <span class="n">LOG</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;new rrset object for </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">RRSet</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">raw_records</span> <span class="o">=</span> <span class="n">records</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rtype</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;changetype&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">changetype</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;ttl&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ttl</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;records&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">records</span><span class="p">:</span>
+            <span class="n">disabled</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">set</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">&gt;</span> <span class="p">{</span><span class="s2">&quot;content&quot;</span><span class="p">,</span> <span class="s2">&quot;disabled&quot;</span><span class="p">}:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dictionary </span><span class="si">{</span> <span class="n">records</span> <span class="si">}</span><span class="s2"> has more keys than &#39;content&#39; and &#39;disabled&#39;&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="s2">&quot;content&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">record</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dictionary </span><span class="si">{</span> <span class="n">records</span> <span class="si">}</span><span class="s2"> does not have the &#39;content&#39; key.&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="s2">&quot;disabled&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">record</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                    <span class="n">record</span><span class="p">[</span><span class="s2">&quot;disabled&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+                <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;records&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
+                <span class="k">continue</span>
+
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+                <span class="n">disabled</span> <span class="o">=</span> <span class="n">record</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">record</span> <span class="o">=</span> <span class="n">record</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;records&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;content&#39;</span><span class="p">:</span> <span class="n">record</span><span class="p">,</span> <span class="s1">&#39;disabled&#39;</span><span class="p">:</span> <span class="n">disabled</span><span class="p">})</span>
+        <span class="k">if</span> <span class="n">comments</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;comments&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;comments&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">comments</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;RRSet(</span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span>
+            <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]),</span>
+            <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]),</span>
+            <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">raw_records</span><span class="p">),</span>
+            <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;ttl&#39;</span><span class="p">]),</span>
+            <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;changetype&#39;</span><span class="p">]),</span>
+            <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;comments&#39;</span><span class="p">]),</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">records</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">raw_records</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+                <span class="n">records</span> <span class="o">+=</span> <span class="p">[</span><span class="n">record</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">records</span> <span class="o">+=</span> <span class="p">[</span><span class="n">record</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="s2">&quot;(ttl=</span><span class="si">%d</span><span class="s2">) </span><span class="si">%s</span><span class="s2">  </span><span class="si">%s</span><span class="s2">  </span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;ttl&#39;</span><span class="p">],</span>
+                                            <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span>
+                                            <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">],</span>
+                                            <span class="n">records</span><span class="p">,</span>
+                                            <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;comments&#39;</span><span class="p">],)</span>
+
+<div class="viewcode-block" id="RRSet.ensure_canonical"><a class="viewcode-back" href="../../interface.html#powerdns.interface.RRSet.ensure_canonical">[docs]</a>    <span class="k">def</span> <span class="nf">ensure_canonical</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">zone</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Ensure every record names are canonical</span>
+
+<span class="sd">        :param str zone: Zone name to build canonical names</span>
+
+<span class="sd">        In case of CNAME records, records content is also checked.</span>
+
+<span class="sd">        .. warning::</span>
+
+<span class="sd">            This method update :class:`RRSet` data to ensure the use of</span>
+<span class="sd">            canonical names. It is actually not possible to revert values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">LOG</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;ensuring rrset </span><span class="si">%s</span><span class="s2"> is canonical&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">zone</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">PDNSCanonicalError</span><span class="p">(</span><span class="n">zone</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">):</span>
+            <span class="n">LOG</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;transforming </span><span class="si">%s</span><span class="s2"> with </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">zone</span><span class="p">)</span>
+            <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="s2">&quot;.</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">zone</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;CNAME&#39;</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;records&#39;</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">record</span><span class="p">[</span><span class="s1">&#39;content&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">):</span>
+                    <span class="n">LOG</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;transforming </span><span class="si">%s</span><span class="s2"> with </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                              <span class="n">record</span><span class="p">[</span><span class="s1">&#39;content&#39;</span><span class="p">],</span> <span class="n">zone</span><span class="p">)</span>
+                    <span class="n">record</span><span class="p">[</span><span class="s1">&#39;content&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="s2">&quot;.</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">zone</span></div></div>
+
+
+<div class="viewcode-block" id="Comment"><a class="viewcode-back" href="../../interface.html#powerdns.interface.Comment">[docs]</a><span class="k">class</span> <span class="nc">Comment</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Comment data for PowerDNS API RRSets</span>
+
+<span class="sd">    :param str content: the content of the comment</span>
+<span class="sd">    :param str account: the account</span>
+<span class="sd">    :param int modified_at: Unix timestamp at which the comment was last</span>
+<span class="sd">                            modified. Will be set to the current timestamp if</span>
+<span class="sd">                            None.</span>
+
+<span class="sd">    .. seealso:: https://doc.powerdns.com/md/httpapi/api_spec/#zone95collection</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">account</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">modified_at</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialization&quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Comment</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="n">content</span><span class="p">,</span> <span class="n">account</span><span class="o">=</span><span class="n">account</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">modified_at</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;modified_at&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;modified_at&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">modified_at</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;Comment(</span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span>
+            <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s2">&quot;content&quot;</span><span class="p">]),</span>
+            <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s2">&quot;account&quot;</span><span class="p">]),</span>
+            <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s2">&quot;modified_at&quot;</span><span class="p">]),</span>
+        <span class="p">)</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+          <li><img src="../../_static/py.svg" alt="python logo" style="vertical-align: middle; margin-top: -1px"/></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+              <a href="../../index.html">python-powerdns 2.0.0
+ documentation</a> &#187;
+              
+          </li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../powerdns.html" >powerdns</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">powerdns.interface</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="../../search.html" method="get">
+          <input placeholder="Quick search" aria-label="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+                     |
+                </li>
+            
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../../copyright.html">Copyright</a> 2018, Denis &#39;jawa&#39; Pompilio.
+    <br />
+    This page is licensed under the Python Software Foundation License Version 2.
+    <br />
+    Examples, recipes, and other code in the documentation are additionally licensed under the Zero Clause BSD License.
+    <br />
+    See <a href="">History and License</a> for more information.
+    <br /><br />
+
+    The Python Software Foundation is a non-profit corporation.
+<a href="https://www.python.org/psf/donations/">Please donate.</a>
+<br />
+    <br />
+
+    Last updated on None.
+    
+    <br />
+
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.2.
+    </div>
+
+  </body>
+</html>
