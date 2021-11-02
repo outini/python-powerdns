@@ -166,8 +166,9 @@ docker run --rm -it pdns
 ### Python Unit-Tests
 
 Python unit-tests are available in the [tests] directory. Based on [unittests],
-those are run using `python -m unittests tests` or integrated in your IDE for
-development purposes.
+those are run using `coverage run -m unittest discover` or integrated in your
+IDE for development purposes. Those tests require a PDNS service to connect to
+(see _PowerDNS service_ section above).
 
 Those tests are very limited at the moment and will be improved in the future.
 
