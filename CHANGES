@@ -4,6 +4,10 @@ python-powerdns - PowerDNS web api python client and interface
 Contact: Denis 'jawa' Pompilio <denis.pompilio@gmail.com>
 Sources: https://github.com/outini/python-powerdns
 
+=== v2.1.0 02/11/2021 ===
+    * feat(interface.py): Add support for RRSet Records as dicts (991jo)
+    * feat(tests): Add tests suite and documentation
+
 === v2.0.0 15/06/2021 ===
     * feat(interface.py): Add support for RRset comments
 
