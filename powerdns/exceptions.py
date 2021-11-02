@@ -27,9 +27,9 @@ class PDNSCanonicalError(SyntaxError):
     """
     def __init__(self, name):
         """Initialization"""
+        super(PDNSCanonicalError, self).__init__(name)
         self.name = name
         self.message = "'%s' is not canonical" % name
-        super(PDNSCanonicalError, self).__init__()
 
 
 class PDNSError(Exception):
@@ -45,7 +45,7 @@ class PDNSError(Exception):
 
     def __init__(self, url, status_code, message):
         """Initialization"""
+        super(PDNSError, self).__init__()
         self.url = url
         self.status_code = status_code
         self.message = message
-        super(PDNSError, self).__init__()
