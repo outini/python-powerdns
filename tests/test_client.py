@@ -17,21 +17,19 @@
 #  You should have received a copy of the MIT License along with this
 #  program; if not, see <https://opensource.org/licenses/MIT>.
 
-import powerdns
-
-from logging import Logger
 from unittest import TestCase
 
-
-PDNS_KEY = "MySupErS3cureK3y"
-PDNS_API = "http://172.17.0.2:8081/api/v1"
-
-API_CLIENT = powerdns.PDNSApiClient(api_endpoint=PDNS_API,
-                                    api_key=PDNS_KEY,
-                                    verify=False)
+from . import API_CLIENT, PDNS_API, PDNS_KEY
 
 
-class TestLogger(TestCase):
+class TestClient(TestCase):
 
-    def test_logger_creation(self):
-        self.assertIsInstance(powerdns.basic_logger("test", 2, 1), Logger)
+    def test_client_repr_and_str(self):
+        repr_str = "PDNSApiClient('%s', '%s', verify=False, timeout=None)" % (
+            PDNS_API, PDNS_KEY
+        )
+        self.assertEqual(repr(API_CLIENT), repr_str)
+        self.assertEqual(str(API_CLIENT), PDNS_API)
+
+    def test_client_full_uri(self):
+        self.assertIsInstance(API_CLIENT.get(PDNS_API + "/servers"), list)
