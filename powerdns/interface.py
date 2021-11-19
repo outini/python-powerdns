@@ -537,6 +537,10 @@ class RRSet(dict):
         LOG.debug("ensuring rrset %s is canonical", self['name'])
         if not zone.endswith('.'):
             raise PDNSCanonicalError(zone)
+        # Allowed add TXT and MX record, because record string must be empty
+        if not self['name']:
+            LOG.debug("transforming %s with %s", self['name'], zone)
+            self['name'] += "%s" % zone
         if not self['name'].endswith('.'):
             LOG.debug("transforming %s with %s", self['name'], zone)
             self['name'] += ".%s" % zone
