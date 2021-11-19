@@ -115,7 +115,11 @@ zone.create_records([
     powerdns.RRSet('a', 'A', [('1.1.1.1', False)], comments=comments),
     powerdns.RRSet('b', 'A', ['1.1.1.2', '1.1.1.3']),
     powerdns.RRSet('c', 'A', [('1.1.1.4', False)]),
-    powerdns.RRSet('d', 'CNAME', ['a'])
+    powerdns.RRSet('d', 'CNAME', ['a']),
+    # Added TXT record for "test.python-powerdns.domain.tld."
+    powerdns.RRSet('','TXT', [('"v=spf1 mx include:spf.domain.tld ~all"', False)]),
+    # Added MX record for "test.python-powerdns.domain.tld."
+    powerdns.RRSet('','MX', [('10 mx.domain.tld.', False)])
 ])
 
 zone.delete_records([
