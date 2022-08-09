@@ -238,7 +238,7 @@ class PDNSServer(PDNSEndpointBase):
             raise PDNSCanonicalError(r_name)
         best_match = None
         for zone in self.zones:
-            if r_name.endswith(zone.name):
+            if r_name.endswith('.' + zone.name):
                 if not best_match:
                     best_match = zone
                 if best_match and len(zone.name) > len(best_match.name):
