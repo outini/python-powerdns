@@ -33,7 +33,7 @@ if __name__ == '__main__':
         maintainer="Denis Pompilio (jawa)",
         maintainer_email="denis.pompilio@gmail.com",
         description="PowerDNS web api python client and interface",
-        long_description=open(readme_file).read(),
+        long_description=open(readme_file,'r', encoding='UTF-8').read(),
         long_description_content_type='text/markdown',
         license="MIT",
         platforms=['UNIX'],
